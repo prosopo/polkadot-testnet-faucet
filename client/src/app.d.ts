@@ -9,7 +9,7 @@ declare global {
   }
 
   declare interface Window {
-    grecaptcha?: Captcha;
+    procaptcha?: Captcha;
     captchaLoaded: () => void;
     onToken: (token: string) => void;
     onExpiredToken: () => void;
@@ -20,14 +20,13 @@ interface Captcha {
   render: (
     element: string,
     key: {
-      sitekey: string;
+      siteKey: string;
       callback?: string;
-      "expired-callback"?: string;
       theme?: "light" | "dark";
-      size?: "normal" | "compact";
+      "chalexpired-callback"?: string;
     },
   ) => void;
-  getResponse: () => string;
+  default: (callback: () => void) => void;
 }
 
 export {};

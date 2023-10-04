@@ -20,18 +20,15 @@
             ? "dark"
             : "light"
           : theme;
-      const mobileScreen = window.innerHeight > window.innerWidth;
 
-      if (!window.grecaptcha) {
+      if (!window.procaptcha) {
         captchaError = true;
-        throw new Error("grecaptcha is undefined!");
+        throw new Error("procaptcha is undefined!");
       }
-      window.grecaptcha.render(captchaId, {
-        sitekey: captchaKey,
+      window.procaptcha.render(captchaId, {
+        siteKey: captchaKey,
         theme: colorTheme,
         callback: "onToken",
-        size: mobileScreen ? "compact" : "normal",
-        "expired-callback": "onExpiredToken",
       });
     };
 
@@ -52,7 +49,7 @@
 
 <svelte:head>
   {#if componentMounted}
-    <script src="https://www.google.com/recaptcha/api.js?onload=captchaLoaded&render=explicit" async defer></script>
+    <script src="procaptcha.bundle.js?render=implicit&onload=captchaLoaded" async defer></script>
   {/if}
 </svelte:head>
 
