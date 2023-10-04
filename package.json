@@ -40,7 +40,7 @@
       "echo ls && cd client && eslint --fix"
     ],
     "./client/**/*.ts": [
-      "echo ls && cd client && prettier --write",
+      "cd client && prettier --write",
       "echo ls && cd client && eslint --fix"
     ]
   },
