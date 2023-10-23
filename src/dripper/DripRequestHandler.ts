@@ -6,7 +6,7 @@ import { isAccountPrivileged } from "src/utils";
 
 import { hasDrippedToday, saveDrip } from "./dripperStorage";
 import type { PolkadotActions } from "./polkadot/PolkadotActions";
-import { Recaptcha } from "./Recaptcha";
+import { Procaptcha } from "./Recaptcha";
 
 const isParachainValid = (parachain: string): boolean => {
   if (!parachain) {
@@ -23,18 +23,18 @@ const isParachainValid = (parachain: string): boolean => {
 export class DripRequestHandler {
   constructor(
     private actions: PolkadotActions,
-    private recaptcha: Recaptcha,
+    private procaptcha: Procaptcha,
   ) {}
 
   async handleRequest(
     opts:
-      | ({ external: true; recaptcha: string } & Omit<DripRequestType, "sender">)
-      | ({ external: false; sender: string } & Omit<DripRequestType, "recaptcha">),
+      | ({ external: true; procaptcha: string } & Omit<DripRequestType, "sender">)
+      | ({ external: false; sender: string } & Omit<DripRequestType, "procaptcha">),
   ): Promise<DripResponse> {
     const { external, address: addr, parachain_id, amount } = opts;
     counters.totalRequests.inc();
 
-    if (external && !(await this.recaptcha.validate(opts.recaptcha)))
+    if (external && !(await this.procaptcha.validate(opts.procaptcha)))
       return { error: "Captcha validation was unsuccessful" };
     if (!isParachainValid(parachain_id))
       return { error: "Parachain invalid. Be sure to set a value between 1000 and 9999" };
@@ -67,8 +67,8 @@ export class DripRequestHandler {
 let instance: DripRequestHandler | undefined;
 export const getDripRequestHandlerInstance = (polkadotActions: PolkadotActions) => {
   if (!instance) {
-    const recaptchaService = new Recaptcha();
-    instance = new DripRequestHandler(polkadotActions, recaptchaService);
+    const procaptchaService = new Procaptcha();
+    instance = new DripRequestHandler(polkadotActions, procaptchaService);
   }
   return instance;
 };

@@ -1,24 +1,19 @@
-import axios from "axios";
-import { URLSearchParams } from "url";
+import { getServerConfig, ProsopoServer } from "@prosopo/server";
+import { ProcaptchaOutput } from "@prosopo/types";
 
-import { config } from "../config";
 import { logger } from "../logger";
 
-export class Recaptcha {
-  constructor(private secret: string = config.Get("RECAPTCHA_SECRET")) {
-    if (!this.secret) {
-      throw new Error(`⭕ Recaptcha is not configured. Check the RECAPTCHA_SECRET variable.`);
-    }
-  }
-
+export class Procaptcha {
   async validate(captcha: string): Promise<boolean> {
     try {
-      const params = new URLSearchParams();
-      params.append("secret", this.secret);
-      params.append("response", captcha);
-      const captchaResult = await axios.post("https://www.google.com/recaptcha/api/siteverify", params);
-      if (captchaResult.data.success === true) return true;
-      logger.debug("Negative recaptcha validation result", captchaResult.data);
+      const prosopoOutput = JSON.parse(captcha) as ProcaptchaOutput;
+      const config = getServerConfig();
+
+      const prosopoServer = new ProsopoServer(config);
+
+      const captchaResult = await prosopoServer.isVerified(prosopoOutput);
+      if (captchaResult) return true;
+      logger.debug("Negative procaptcha validation result", captchaResult);
       return false;
     } catch (e) {
       logger.error(`⭕ An error occurred when validating captcha`, e);

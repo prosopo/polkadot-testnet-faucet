@@ -1,8 +1,8 @@
-import { type Frame, type FullConfig, type Locator, type Page, expect, test } from "@playwright/test";
+import { type Frame, type FullConfig, type Locator, type Page,expect, test } from "@playwright/test";
 
 type FormSubmit = {
   address: string;
-  recaptcha: string;
+  procaptcha: string;
   parachain_id?: string;
 };
 
@@ -18,7 +18,7 @@ const getFormElements = async (page: Page, getCaptcha = false) => {
       // FIXME consider "until" from "@eng-automation/js"?
       // eslint-disable-next-line no-restricted-syntax
       (function waitForFrame() {
-        const captchaFrames = page.frames().filter((f) => f.url().includes("https://www.google.com/recaptcha/api2/"));
+        const captchaFrames = page.frames().filter((f) => f.url().includes("https://www.google.com/procaptcha/api2/"));
         if (captchaFrames.length > 0) {
           return resolve(captchaFrames[0]);
         } else {
@@ -30,7 +30,7 @@ const getFormElements = async (page: Page, getCaptcha = false) => {
         setTimeout(waitForFrame, 300);
       })();
     });
-    captcha = captchaFrame?.locator("#recaptcha-anchor") as Locator;
+    captcha = captchaFrame?.locator("#procaptcha-anchor") as Locator;
   }
   return {
     address: page.getByTestId("address"),
@@ -210,7 +210,7 @@ export class FaucetTests {
             if (req.url() === faucetUrl) {
               const data = req.postDataJSON() as FormSubmit;
               expect(data.address).toEqual(myAddress);
-              return !!data.recaptcha;
+              return !!data.procaptcha;
             }
             return false;
           });
@@ -242,7 +242,7 @@ export class FaucetTests {
                 const data = req.postDataJSON() as FormSubmit;
                 const parachain_id = chain.id > 0 ? chain.id.toString() : undefined;
                 expect(data).toMatchObject({ address: myAddress, parachain_id });
-                return !!data.recaptcha;
+                return !!data.procaptcha;
               }
               return false;
             });
@@ -270,7 +270,7 @@ export class FaucetTests {
             if (req.url() === faucetUrl) {
               const data = req.postDataJSON() as FormSubmit;
               expect(data).toMatchObject({ address: myAddress, parachain_id: "9999" });
-              return !!data.recaptcha;
+              return !!data.procaptcha;
             }
             return false;
           });

@@ -384,9 +384,9 @@
     "regenerator-runtime" "^0.13.4"
 
 "@babel/runtime@^7.19.4":
-  "integrity" "sha512-hC2v6p8ZSI/W0HUzh3V8C5g+NwSKzKPtJwSpTjwl0o297GP9+ZLQSkdvHz46CM3LqyoXxq+5G9komY+eSqSO0g=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.1.tgz"
-  "version" "7.23.1"
+  "integrity" "sha512-mM8eg4yl5D6i3lu2QKPuPH4FArvJ8KhTofbE7jwMUv9KX5mBvwPAqnV3MlyBNqdp9RyRKP6Yck8TrfYrPvX3bg=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.2.tgz"
+  "version" "7.23.2"
   dependencies:
     "regenerator-runtime" "^0.14.0"
 
@@ -1544,18 +1544,18 @@
     "tslib" "^2.5.3"
     "ws" "^8.13.0"
 
-"@prosopo/api@0.2.5":
-  "integrity" "sha512-iXlfRzjTtsuG5ULcqlHTXheWlP9hKit7TPDnCm5E3zYg7yguzOxLZ8JpnnvtrowCpHDlEV8gRwc4hQltMQ0XdA=="
-  "resolved" "https://registry.npmjs.org/@prosopo/api/-/api-0.2.5.tgz"
-  "version" "0.2.5"
+"@prosopo/api@0.2.9":
+  "integrity" "sha512-OLX2POewteSeYf+rw7A8WotfUVRRKikps7AvESQxOFWYdB9RbSVdVOdI3IB5BDxYLzYhu48WDLm/X/mgkDgxAQ=="
+  "resolved" "https://registry.npmjs.org/@prosopo/api/-/api-0.2.9.tgz"
+  "version" "0.2.9"
   dependencies:
-    "@prosopo/types" "0.2.5"
+    "@prosopo/types" "0.2.9"
     "axios" "^1.5.0"
 
-"@prosopo/captcha-contract@^0.2.2":
-  "integrity" "sha512-9RQyLYVw4SE2OYrotiCFn50d3qgV0BWiwFrwaZPPB/Qh7ioDMhaZmCeivbgDUoo3pXCwaH8YTKZ6ldKemrxsYA=="
-  "resolved" "https://registry.npmjs.org/@prosopo/captcha-contract/-/captcha-contract-0.2.5.tgz"
-  "version" "0.2.5"
+"@prosopo/captcha-contract@0.2.9":
+  "integrity" "sha512-Oi9ZfHL+rbN3GATGB2i2YeNgYhftYQU/c1WPn7p1Ars0zg62Cq2uar+GHny/tXbVPgAg7/JGmKYvFgj8Vp/s4Q=="
+  "resolved" "https://registry.npmjs.org/@prosopo/captcha-contract/-/captcha-contract-0.2.9.tgz"
+  "version" "0.2.9"
   dependencies:
     "@727-ventures/typechain-polkadot" "1.1.1"
     "@727-ventures/typechain-types" "1.1.2"
@@ -1570,15 +1570,15 @@
     "@polkadot/util" "12.3.2"
     "@polkadot/util-crypto" "12.3.2"
 
-"@prosopo/common@0.2.5":
-  "integrity" "sha512-brvBkBgimWQXnE+Bves0V/HrMZnF/RZPvydeB9+R8nX2HYubc20BtND/IfptXmA0KD3qgRdzHllXJlk+B2I+vQ=="
-  "resolved" "https://registry.npmjs.org/@prosopo/common/-/common-0.2.5.tgz"
-  "version" "0.2.5"
+"@prosopo/common@0.2.9":
+  "integrity" "sha512-Mu5gmpo6ffTF51ZNehGmqCoJZ1N/szNNGGEECzRGTCsg4GuMM+SRV1bbRReyOHrCA+N69jXm/6iJrBKzUQ9y7A=="
+  "resolved" "https://registry.npmjs.org/@prosopo/common/-/common-0.2.9.tgz"
+  "version" "0.2.9"
   dependencies:
     "@polkadot/keyring" "12.3.2"
     "@polkadot/util" "12.3.2"
     "@polkadot/util-crypto" "12.3.2"
-    "@prosopo/util" "0.2.5"
+    "@prosopo/util" "0.2.9"
     "@types/react" "^18.0.25"
     "consola" "^3.2.3"
     "dotenv" "^16.0.1"
@@ -1587,12 +1587,12 @@
     "i18next-http-backend" "^1.4.4"
     "i18next-http-middleware" "^3.2.1"
     "react-i18next" "^11.18.6"
-    "zod" "^3.17.9"
+    "zod" "^3.22.3"
 
-"@prosopo/contract@0.2.5":
-  "integrity" "sha512-fB1LsOQ1wxaDzqCtrOfo9o6oroqWsk56wvBYDk4tlktETxhaUD1Vb5uTg60p0vYLnXu+8rvnh/RJ1zL+Ez3TjQ=="
-  "resolved" "https://registry.npmjs.org/@prosopo/contract/-/contract-0.2.5.tgz"
-  "version" "0.2.5"
+"@prosopo/contract@0.2.9":
+  "integrity" "sha512-g+bf1DKny9nufiP8G456fQ3yEF7Zcj5lj2yj0DiMFsfuESF9iDowUswJwQLBmJVpcwQ+m9rtq2N98P3pBH8uTw=="
+  "resolved" "https://registry.npmjs.org/@prosopo/contract/-/contract-0.2.9.tgz"
+  "version" "0.2.9"
   dependencies:
     "@polkadot/api" "10.9.1"
     "@polkadot/api-contract" "10.9.1"
@@ -1603,28 +1603,28 @@
     "@polkadot/types-create" "10.9.1"
     "@polkadot/util" "12.3.2"
     "@polkadot/util-crypto" "12.3.2"
-    "@prosopo/captcha-contract" "^0.2.2"
-    "@prosopo/common" "0.2.5"
-    "@prosopo/types" "0.2.5"
-    "@prosopo/util" "0.2.5"
+    "@prosopo/captcha-contract" "0.2.9"
+    "@prosopo/common" "0.2.9"
+    "@prosopo/types" "0.2.9"
+    "@prosopo/util" "0.2.9"
     "rxjs" "^7.8.1"
 
-"@prosopo/datasets@0.2.5":
-  "integrity" "sha512-5cMawkCvdTrV7gXLIocIQMVKuxZEoqkf+yOCYBZE7x/25uvcDzBHMQYM9eNbCT6LgNciPUiFNqb3VIPY5rpbmQ=="
-  "resolved" "https://registry.npmjs.org/@prosopo/datasets/-/datasets-0.2.5.tgz"
-  "version" "0.2.5"
+"@prosopo/datasets@0.2.9":
+  "integrity" "sha512-42kpVQRs5CYyfA1iL22+JcGcQU7/GWH9YoiaBXHN30G+4mAYnlJLZkLgpyiIBeZtN7Wd1l4dxY44qASkid/K+w=="
+  "resolved" "https://registry.npmjs.org/@prosopo/datasets/-/datasets-0.2.9.tgz"
+  "version" "0.2.9"
   dependencies:
     "@polkadot/util" "^12.3.2"
-    "@prosopo/common" "0.2.5"
-    "@prosopo/contract" "0.2.5"
-    "@prosopo/types" "0.2.5"
-    "@prosopo/util" "0.2.5"
+    "@prosopo/common" "0.2.9"
+    "@prosopo/contract" "0.2.9"
+    "@prosopo/types" "0.2.9"
+    "@prosopo/util" "0.2.9"
     "axios" "^1.5.0"
 
-"@prosopo/procaptcha@0.2.5":
-  "integrity" "sha512-Zz7MxFdeqGPpcW25bxbQTsJ9IEaUVLt5mZeMHV9ihwyUiXqxWHY6M2TumQeYf5DcI8tszhbFgPrIFF0t48Ii1A=="
-  "resolved" "https://registry.npmjs.org/@prosopo/procaptcha/-/procaptcha-0.2.5.tgz"
-  "version" "0.2.5"
+"@prosopo/procaptcha@0.2.9":
+  "integrity" "sha512-H2VkdG+QicK6+j2YpnthhO86LQShtVWgH9aAx0lMibPwijlp2YAWafdPE3P0++IBQ1o6CF/OicbxdHZBogGKzg=="
+  "resolved" "https://registry.npmjs.org/@prosopo/procaptcha/-/procaptcha-0.2.9.tgz"
+  "version" "0.2.9"
   dependencies:
     "@fingerprintjs/fingerprintjs" "^3.3.6"
     "@polkadot/api" "10.9.1"
@@ -1637,47 +1637,47 @@
     "@polkadot/types" "10.9.1"
     "@polkadot/util" "12.3.2"
     "@polkadot/util-crypto" "12.3.2"
-    "@prosopo/api" "0.2.5"
-    "@prosopo/common" "0.2.5"
-    "@prosopo/contract" "0.2.5"
-    "@prosopo/datasets" "0.2.5"
-    "@prosopo/types" "0.2.5"
-    "@prosopo/util" "0.2.5"
+    "@prosopo/api" "0.2.9"
+    "@prosopo/common" "0.2.9"
+    "@prosopo/contract" "0.2.9"
+    "@prosopo/datasets" "0.2.9"
+    "@prosopo/types" "0.2.9"
+    "@prosopo/util" "0.2.9"
     "axios" "^1.5.0"
 
-"@prosopo/server@^0.2.5":
-  "integrity" "sha512-pkbptsb+6nlSWJ0vADNwC77jSmshibIEVj5dwLZQ/c0WTvsqbaBij76ScQe7Trfq8kOAddfT9rkcYajbeZue4A=="
-  "resolved" "https://registry.npmjs.org/@prosopo/server/-/server-0.2.5.tgz"
-  "version" "0.2.5"
+"@prosopo/server@^0.2.9":
+  "integrity" "sha512-Kl1CT5DOwCC2VtOrQsoGZyGbL1UrD7cl3rYqpKas5t6bvG7bd3SrfYI+wszfCV41uQOUbXeIZ8y+aeqemCHovQ=="
+  "resolved" "https://registry.npmjs.org/@prosopo/server/-/server-0.2.9.tgz"
+  "version" "0.2.9"
   dependencies:
     "@polkadot/api" "10.9.1"
     "@polkadot/keyring" "12.3.2"
     "@polkadot/rpc-provider" "10.9.1"
     "@polkadot/types" "10.9.1"
-    "@prosopo/api" "0.2.5"
-    "@prosopo/captcha-contract" "^0.2.2"
-    "@prosopo/contract" "0.2.5"
-    "@prosopo/procaptcha" "0.2.5"
-    "@prosopo/types" "0.2.5"
+    "@prosopo/api" "0.2.9"
+    "@prosopo/captcha-contract" "0.2.9"
+    "@prosopo/contract" "0.2.9"
+    "@prosopo/procaptcha" "0.2.9"
+    "@prosopo/types" "0.2.9"
 
-"@prosopo/types@0.2.5":
-  "integrity" "sha512-GQKqnJpVamw3jugXcVa+He0PuaGHbRxEo6DVi0RSv0NAzVjS+jMI2GEG9PeukBXBvczPe4Re9Sf1M2Wk/xsu1A=="
-  "resolved" "https://registry.npmjs.org/@prosopo/types/-/types-0.2.5.tgz"
-  "version" "0.2.5"
+"@prosopo/types@^0.2.9", "@prosopo/types@0.2.9":
+  "integrity" "sha512-EKKwKDha044PMFkpx3anRZA/AHxF4kKMf7hQkWNUQeLRtFn9PqGkH+turA9IjEd5JSfa8qEPcfzTnwQL6pn4lA=="
+  "resolved" "https://registry.npmjs.org/@prosopo/types/-/types-0.2.9.tgz"
+  "version" "0.2.9"
   dependencies:
     "@polkadot/api" "10.9.1"
     "@polkadot/api-contract" "10.9.1"
     "@polkadot/types" "10.9.1"
     "@polkadot/types-codec" "10.9.1"
-    "@prosopo/captcha-contract" "^0.2.2"
-    "@prosopo/common" "0.2.5"
+    "@prosopo/captcha-contract" "0.2.9"
+    "@prosopo/common" "0.2.9"
     "consola" "^3.2.3"
-    "zod" "^3.17.9"
+    "zod" "^3.22.3"
 
-"@prosopo/util@0.2.5":
-  "integrity" "sha512-9WXT61rUYgOIISF/MzLVKnvUMeDEmbTlK3MpNTPPrBgCBoysh2uNs2ohjs1hkQpq25RS0U5gEMePTCh6gl6Rkg=="
-  "resolved" "https://registry.npmjs.org/@prosopo/util/-/util-0.2.5.tgz"
-  "version" "0.2.5"
+"@prosopo/util@0.2.9":
+  "integrity" "sha512-2i//58VK05kwIFzyI6gcVwXQSxaCXjujqq8ZdG+ScVQrNaxr9l8n062INNVdcitrEedFKgiq2HXjq7DsPIaBMA=="
+  "resolved" "https://registry.npmjs.org/@prosopo/util/-/util-0.2.9.tgz"
+  "version" "0.2.9"
   dependencies:
     "lodash" "^4.17.21"
     "seedrandom" "^3.0.5"
@@ -1958,9 +1958,9 @@
   "version" "2.6.0"
 
 "@types/prop-types@*":
-  "integrity" "sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ=="
-  "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.8.tgz"
-  "version" "15.7.8"
+  "integrity" "sha512-n1yyPsugYNSmHgxDFjicaI2+gCNjsBck8UX9kuofAKlc0h1bL+20oSF72KeNaW2DUlesbEVCFgyV2dPGTiY42g=="
+  "resolved" "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.9.tgz"
+  "version" "15.7.9"
 
 "@types/qs@*":
   "integrity" "sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw=="
@@ -1973,9 +1973,9 @@
   "version" "1.2.4"
 
 "@types/react@^18.0.25":
-  "integrity" "sha512-Ee0Jt4sbJxMu1iDcetZEIKQr99J1Zfb6D4F3qfUWoR1JpInkY1Wdg4WwCyBjL257D0+jGqSl1twBjV8iCaC0Aw=="
-  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.2.24.tgz"
-  "version" "18.2.24"
+  "integrity" "sha512-c2UnPv548q+5DFh03y8lEDeMfDwBn9G3dRwfkrxQMo/dOtRHUUO57k6pHvBIfH/VF4Nh+98mZ5aaSe+2echD5g=="
+  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.2.31.tgz"
+  "version" "18.2.31"
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -2004,9 +2004,9 @@
   "version" "0.12.0"
 
 "@types/scheduler@*":
-  "integrity" "sha512-2L9ifAGl7wmXwP4v3pN4p2FLhD0O1qsJpvKmNin5VA8+UvNVb447UDaAEV6UdrkA+m/Xs58U1RFps44x6TFsVQ=="
-  "resolved" "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.4.tgz"
-  "version" "0.16.4"
+  "integrity" "sha512-s/FPdYRmZR8SjLWGMCuax7r3qCWQw9QKHzXVukAuuIJkXkDRwp+Pu5LMIVFi0Fxbav35WURicYr8u1QsoybnQw=="
+  "resolved" "https://registry.npmjs.org/@types/scheduler/-/scheduler-0.16.5.tgz"
+  "version" "0.16.5"
 
 "@types/semver@^7.3.12":
   "integrity" "sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw=="
@@ -4346,9 +4346,9 @@
     "cross-fetch" "3.1.5"
 
 "i18next-http-middleware@^3.2.1":
-  "integrity" "sha512-cjtr7eVaTsEb14XHPIADRXd+CyoIMn152n2+vi72CIbREv+7yBsTIpBS+L92hkh74DAqCuRDqMJa3ZWYPfRqIg=="
-  "resolved" "https://registry.npmjs.org/i18next-http-middleware/-/i18next-http-middleware-3.4.0.tgz"
-  "version" "3.4.0"
+  "integrity" "sha512-5zYt+2WKZLKmhC0qSUKXAE98MNiM2ysXzHVQ2LoGkLjE5qXkMC7Nf570fc+SWnFF/yMh4Ur+gywgzLiBojfjZA=="
+  "resolved" "https://registry.npmjs.org/i18next-http-middleware/-/i18next-http-middleware-3.4.1.tgz"
+  "version" "3.4.1"
 
 "i18next@^21.9.2", "i18next@>= 19.0.0":
   "integrity" "sha512-YeuIBmFsGjUfO3qBmMOc0rQaun4mIpGKET5WDwvu8lU7gvwpcariZLNtL0Fzj+zazcHUrlXHiptcFhBMFaxzfg=="
@@ -7571,7 +7571,7 @@
     "compress-commons" "^4.1.0"
     "readable-stream" "^3.6.0"
 
-"zod@^3.17.9":
-  "integrity" "sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug=="
-  "resolved" "https://registry.npmjs.org/zod/-/zod-3.22.3.tgz"
-  "version" "3.22.3"
+"zod@^3.22.3":
+  "integrity" "sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg=="
+  "resolved" "https://registry.npmjs.org/zod/-/zod-3.22.4.tgz"
+  "version" "3.22.4"

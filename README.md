@@ -12,19 +12,22 @@ yarn simple-git-hooks
 ```
 
 #### start local database:
+
 ```bash
 yarn dev:db
 ```
 
 #### run migrations:
+
 ```bash
 yarn migrations:run
 ```
 
 #### creating migrations:
-* update entities in `src/db/entity`
-* run `yarn migrations:generate src/db/migration/<migration_name>`
-* import generated migration to `src/db/dataSource.ts`
+
+- update entities in `src/db/entity`
+- run `yarn migrations:generate src/db/migration/<migration_name>`
+- import generated migration to `src/db/dataSource.ts`
 
 #### To launch a hot-reloading dev environment
 
@@ -37,6 +40,7 @@ yarn dev
 Definition with explanation is in `./env.faucet.config.json`
 
 Copy example file to real env and change its values:
+
 ```bash
 $ cp example.env .env
 ```
@@ -51,13 +55,13 @@ Example requests:
 curl -X POST \
   localhost:5555/drip/web \
   -H "Content-Type: application/json" \
-  -d '{"address": "xxx", "parachain_id": "1002", "recaptcha": "captcha_token"}'
+  -d '{"address": "xxx", "parachain_id": "1002", "procaptcha": "captcha_token"}'
 ```
 
 In React:
 
 ```tsx
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-procaptcha";
 
 (...)
 
@@ -76,7 +80,7 @@ const request = async () => {
   const body = {
     address: "xxx",
     parachain_id: "1002",
-    recaptcha: captcha_token
+    procaptcha: captcha_token
   }
 
   const fetchResult = await fetch("http://localhost:5555/drip/web", {
@@ -89,10 +93,10 @@ const request = async () => {
 }
 ```
 
-Where the `captcha_token` is a recaptcha token created with a `sitekey`
-is matching the recaptcha secret specified in `SMF_BACKEND_RECAPTCHA_SECRET`.
+Where the `captcha_token` is a procaptcha token created with a `sitekey`
+is matching the procaptcha secret specified in `SMF_BACKEND_RECAPTCHA_SECRET`.
 
-For testing, you can use a public, testing recaptcha secret which will allow any captcha token to pass.
+For testing, you can use a public, testing procaptcha secret which will allow any captcha token to pass.
 
 ```shell
 # Public testing secret, will accept all tokens.
@@ -105,7 +109,7 @@ An official [substrate-faucet helm chart](https://github.com/paritytech/helm-cha
 
 ### Misc:
 
-* Bump API: `yarn upgrade @polkadot/util@latest @polkadot/wasm-crypto@latest @polkadot/keyring@latest @polkadot/x-randomvalues@latest @polkadot/api@latest @polkadot/keyring@latest @polkadot/util-crypto@latest`
-* Server can be queried for Prometheus metrics via `/metrics`
-* Readiness check URL via `ready`
-* Health check URL via `/health`
+- Bump API: `yarn upgrade @polkadot/util@latest @polkadot/wasm-crypto@latest @polkadot/keyring@latest @polkadot/x-randomvalues@latest @polkadot/api@latest @polkadot/keyring@latest @polkadot/util-crypto@latest`
+- Server can be queried for Prometheus metrics via `/metrics`
+- Readiness check URL via `ready`
+- Health check URL via `/health`
