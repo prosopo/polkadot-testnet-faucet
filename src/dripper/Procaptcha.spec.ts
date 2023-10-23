@@ -1,4 +1,4 @@
-import { Procaptcha } from "./Recaptcha";
+import { Procaptcha } from "./Procaptcha";
 
 describe("Procaptcha", () => {
   it("Validates captcha positively", async () => {

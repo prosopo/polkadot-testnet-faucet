@@ -6,7 +6,7 @@ import { isAccountPrivileged } from "src/utils";
 
 import { hasDrippedToday, saveDrip } from "./dripperStorage";
 import type { PolkadotActions } from "./polkadot/PolkadotActions";
-import { Procaptcha } from "./Recaptcha";
+import { Procaptcha } from "./Procaptcha";
 
 const isParachainValid = (parachain: string): boolean => {
   if (!parachain) {

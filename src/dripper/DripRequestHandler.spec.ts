@@ -2,7 +2,7 @@ import { hasDrippedToday, saveDrip } from "./dripperStorage";
 import { DripRequestHandler } from "./DripRequestHandler";
 import type { PolkadotActions } from "./polkadot/PolkadotActions";
 import { convertAmountToBn } from "./polkadot/utils";
-import { Procaptcha } from "./Recaptcha";
+import { Procaptcha } from "./Procaptcha";
 
 jest.mock("./dripperStorage");
 
