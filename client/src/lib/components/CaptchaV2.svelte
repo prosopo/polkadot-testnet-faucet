@@ -49,7 +49,7 @@
 
 <svelte:head>
   {#if componentMounted}
-    <script src="procaptcha.bundle.js?render=implicit&onload=captchaLoaded" async defer></script>
+    <script src="https://prosopo.io/js/procaptcha.bundle.js?render=implicit&onload=captchaLoaded" async defer></script>
   {/if}
 </svelte:head>
 
@@ -57,7 +57,7 @@
   <div class="alert alert-error shadow-lg" data-testid="error">
     <div>
       <Cross />
-      <span>Error loading Google Captcha. Please reload the page.</span>
+      <span>Error loading Prosopo Captcha. Please reload the page.</span>
     </div>
   </div>
 {/if}
