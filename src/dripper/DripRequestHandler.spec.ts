@@ -3,6 +3,7 @@ import { DripRequestHandler } from "./DripRequestHandler";
 import type { PolkadotActions } from "./polkadot/PolkadotActions";
 import { convertAmountToBn } from "./polkadot/utils";
 import { Procaptcha } from "./Procaptcha";
+import { Recaptcha } from "./Recaptcha";
 
 jest.mock("./dripperStorage");
 
@@ -12,7 +13,7 @@ const actionsMock: PolkadotActions = {
     addr === "unlucky" ? { error: "An error occurred when sending tokens" } : { hash: "0x123" },
 } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-const procaptcha: Procaptcha = { validate: async (captcha: string) => captcha === "valid" } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+const captchaProvider: Procaptcha | Recaptcha = { validate: async (captcha: string) => captcha === "valid" } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 function assumeMocked<R, A extends unknown[]>(f: (...args: A) => R): jest.Mock<R, A> {
   return f as jest.Mock<R, A>;
@@ -22,7 +23,7 @@ describe("DripRequestHandler", () => {
   let handler: DripRequestHandler;
 
   beforeEach(async () => {
-    handler = new DripRequestHandler(actionsMock, procaptcha);
+    handler = new DripRequestHandler(actionsMock, captchaProvider);
     jest.clearAllMocks();
   });
 
@@ -94,7 +95,7 @@ describe("DripRequestHandler", () => {
       amount: convertAmountToBn("0.5"),
       parachain_id: "1002",
       address: "123",
-      procaptcha: "valid",
+      captchaResponse: "valid",
     } as const;
 
     it("Goes through one time", async () => {
@@ -143,7 +144,7 @@ describe("DripRequestHandler", () => {
     });
 
     it("Returns an error response if captcha is invalid", async () => {
-      const result = await handler.handleRequest({ ...defaultRequest, procaptcha: "invalid" });
+      const result = await handler.handleRequest({ ...defaultRequest, captchaResponse: "invalid" });
       expect(result).toEqual({ error: "Captcha validation was unsuccessful" });
     });
 

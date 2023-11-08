@@ -1,12 +1,13 @@
 import { isDripSuccessResponse } from "src/guards";
 import { logger } from "src/logger";
 import { counters } from "src/metrics";
-import { DripRequestType, DripResponse } from "src/types";
+import { CaptchaProvider, DripRequestType, DripResponse } from "src/types";
 import { isAccountPrivileged } from "src/utils";
 
 import { hasDrippedToday, saveDrip } from "./dripperStorage";
 import type { PolkadotActions } from "./polkadot/PolkadotActions";
 import { Procaptcha } from "./Procaptcha";
+import { Recaptcha } from "./Recaptcha";
 
 const isParachainValid = (parachain: string): boolean => {
   if (!parachain) {
@@ -20,21 +21,21 @@ const isParachainValid = (parachain: string): boolean => {
   return id > 999 && id < 10_000;
 };
 
+type HandleRequestOpts =
+  | ({ external: true; captchaResponse: string } & Omit<DripRequestType, "sender">)
+  | ({ external: false; sender: string } & Omit<DripRequestType, "captchaResponse">);
+
 export class DripRequestHandler {
   constructor(
     private actions: PolkadotActions,
-    private procaptcha: Procaptcha,
+    private captchaService: Procaptcha | Recaptcha,
   ) {}
 
-  async handleRequest(
-    opts:
-      | ({ external: true; procaptcha: string } & Omit<DripRequestType, "sender">)
-      | ({ external: false; sender: string } & Omit<DripRequestType, "procaptcha">),
-  ): Promise<DripResponse> {
+  async handleRequest(opts: HandleRequestOpts): Promise<DripResponse> {
     const { external, address: addr, parachain_id, amount } = opts;
     counters.totalRequests.inc();
 
-    if (external && !(await this.procaptcha.validate(opts.procaptcha)))
+    if (external && !(await this.captchaService.validate(opts.captchaResponse)))
       return { error: "Captcha validation was unsuccessful" };
     if (!isParachainValid(parachain_id))
       return { error: "Parachain invalid. Be sure to set a value between 1000 and 9999" };
@@ -65,10 +66,10 @@ export class DripRequestHandler {
 }
 
 let instance: DripRequestHandler | undefined;
-export const getDripRequestHandlerInstance = (polkadotActions: PolkadotActions) => {
+export const getDripRequestHandlerInstance = (polkadotActions: PolkadotActions, captchaProvider: CaptchaProvider) => {
   if (!instance) {
-    const procaptchaService = new Procaptcha();
-    instance = new DripRequestHandler(polkadotActions, procaptchaService);
+    const captchaService = captchaProvider === CaptchaProvider.procaptcha ? new Procaptcha() : new Recaptcha();
+    instance = new DripRequestHandler(polkadotActions, captchaService);
   }
   return instance;
 };

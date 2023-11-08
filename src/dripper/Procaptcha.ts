@@ -4,15 +4,20 @@ import { ProcaptchaOutput } from "@prosopo/types";
 import { logger } from "../logger";
 
 export class Procaptcha {
+  getValidator() {
+    return new ProsopoServer(getServerConfig());
+  }
+
+  private parseOutput(captcha: string): ProcaptchaOutput {
+    return JSON.parse(captcha) as ProcaptchaOutput;
+  }
+
   async validate(captcha: string): Promise<boolean> {
     try {
-      const prosopoOutput = JSON.parse(captcha) as ProcaptchaOutput;
-      const prosopoServer = new ProsopoServer(getServerConfig());
+      const prosopoOutput = this.parseOutput(captcha);
+      const prosopoServer = this.getValidator();
       await prosopoServer.isReady();
-      const captchaResult = await prosopoServer.isVerified(prosopoOutput);
-      if (captchaResult) return true;
-      logger.debug("Negative procaptcha validation result", captchaResult);
-      return false;
+      return await prosopoServer.isVerified(prosopoOutput);
     } catch (e) {
       logger.error(`⭕ An error occurred when validating captcha`, e);
       return false;
