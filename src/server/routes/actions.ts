@@ -67,7 +67,7 @@ router.post<unknown, DripResponse, PartialDrip<FaucetRequestType>>("/drip/web", 
       address,
       parachain_id: parachain_id ?? "",
       amount: convertAmountToBn(networkData.dripAmount),
-      captchaResponse,
+      captchaResponse: captchaResponse,
     });
 
     if ((dripResult as DripErrorResponse).error) {

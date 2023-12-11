@@ -55,13 +55,13 @@ Example requests:
 curl -X POST \
   localhost:5555/drip/web \
   -H "Content-Type: application/json" \
-  -d '{"address": "xxx", "parachain_id": "1002", "procaptcha": "captcha_token"}'
+  -d '{"address": "xxx", "parachain_id": "1002", "captchaResponse": "captcha_token"}'
 ```
 
 In React:
 
 ```tsx
-import ReCAPTCHA from "react-google-procaptcha";
+import ReCAPTCHA from "react-google-recaptcha";
 
 (...)
 
@@ -80,7 +80,7 @@ const request = async () => {
   const body = {
     address: "xxx",
     parachain_id: "1002",
-    procaptcha: captcha_token
+    captchaResponse: captcha_token
   }
 
   const fetchResult = await fetch("http://localhost:5555/drip/web", {
@@ -93,15 +93,26 @@ const request = async () => {
 }
 ```
 
-Where the `captcha_token` is a procaptcha token created with a `sitekey`
-is matching the procaptcha secret specified in `SMF_BACKEND_RECAPTCHA_SECRET`.
+Where the `captcha_token` is either a
 
-For testing, you can use a public, testing procaptcha secret which will allow any captcha token to pass.
+- JSON payload that includes a verified rococo address [procaptcha](https://prosopo.io)
 
-```shell
-# Public testing secret, will accept all tokens.
-SMF_BACKEND_RECAPTCHA_SECRET="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
-```
+or
+
+- a recaptcha token created with a `sitekey` matching the [recaptcha](https://developers.google.com/recaptcha/) secret specified in `SMF_BACKEND_RECAPTCHA_SECRET`.
+
+For testing, you can use
+
+- Alice's address `5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY` with procaptcha
+
+or
+
+- a public, testing captcha secret which will allow any captcha token to pass with recaptcha.
+
+  ```shell
+  # Public testing secret, will accept all tokens.
+  SMF_BACKEND_RECAPTCHA_SECRET="6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+  ```
 
 ### Helm chart
 
