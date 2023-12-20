@@ -223,8 +223,14 @@ async function setupAppContainer(params: {
       SMF_CONFIG_DB_PASSWORD: "postgres",
       SMF_CONFIG_DB_DATABASE_NAME: "faucet",
 
-      // Public testing secret, will accept all tokens.
-      SMF_CONFIG_RECAPTCHA_SECRET: "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
+      // Public testing payload, will return true
+      SMF_CONFIG_PROCAPTCHA_PAYLOAD: `{
+        "user": "5GC7xAfXVHWU92xVW5CqLh1rNToADTCTDzvkp3tUxKvVejfA",
+        "dapp": "5HUBceb4Du6dvMA9BiwN5VzUrzUsX9Zp7z7nSR2cC1TCv5jg",
+        "providerUrl": "https://pronode3.prosopo.io",
+        "blockNumber": "3505597",
+        "commitmentId": "0x5318dac872472f99042bc300d3c96b6cc2cf42e0a18bc520823e0eb1654940f6"
+      }`
     })
     .withWaitStrategy(Wait.forListeningPorts())
     .withExtraHosts([{ host: "host.docker.internal", ipAddress: "host-gateway" }])

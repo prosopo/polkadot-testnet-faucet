@@ -1570,7 +1570,7 @@
     "@polkadot/util" "12.3.2"
     "@polkadot/util-crypto" "12.3.2"
 
-"@prosopo/common@0.2.5":
+"@prosopo/common@^0.2.5", "@prosopo/common@0.2.5":
   "integrity" "sha512-brvBkBgimWQXnE+Bves0V/HrMZnF/RZPvydeB9+R8nX2HYubc20BtND/IfptXmA0KD3qgRdzHllXJlk+B2I+vQ=="
   "resolved" "https://registry.npmjs.org/@prosopo/common/-/common-0.2.5.tgz"
   "version" "0.2.5"
@@ -1660,7 +1660,7 @@
     "@prosopo/procaptcha" "0.2.5"
     "@prosopo/types" "0.2.5"
 
-"@prosopo/types@0.2.5":
+"@prosopo/types@^0.2.5", "@prosopo/types@0.2.5":
   "integrity" "sha512-GQKqnJpVamw3jugXcVa+He0PuaGHbRxEo6DVi0RSv0NAzVjS+jMI2GEG9PeukBXBvczPe4Re9Sf1M2Wk/xsu1A=="
   "resolved" "https://registry.npmjs.org/@prosopo/types/-/types-0.2.5.tgz"
   "version" "0.2.5"

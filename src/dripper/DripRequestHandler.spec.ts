@@ -2,7 +2,7 @@ import { hasDrippedToday, saveDrip } from "./dripperStorage";
 import { DripRequestHandler } from "./DripRequestHandler";
 import type { PolkadotActions } from "./polkadot/PolkadotActions";
 import { convertAmountToBn } from "./polkadot/utils";
-import type { Recaptcha } from "./Recaptcha";
+import type { Procaptcha } from "./Procaptcha";
 
 jest.mock("./dripperStorage");
 
@@ -12,7 +12,7 @@ const actionsMock: PolkadotActions = {
     addr === "unlucky" ? { error: "An error occurred when sending tokens" } : { hash: "0x123" },
 } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-const recaptcha: Recaptcha = { validate: async (captcha: string) => captcha === "valid" } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+const recaptcha: Procaptcha = { validate: async (captcha: string) => captcha === "valid" } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 function assumeMocked<R, A extends unknown[]>(f: (...args: A) => R): jest.Mock<R, A> {
   return f as jest.Mock<R, A>;
