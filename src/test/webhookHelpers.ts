@@ -11,6 +11,7 @@ export async function drip(webEndpoint: string, address: string, parachainId?: s
   if (parachainId) {
     body.parachain_id = parachainId;
   }
+  console.log("body", body)
 
   return await validatedFetch<{
     hash: string;
