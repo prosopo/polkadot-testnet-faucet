@@ -13,7 +13,7 @@ import { isAccountPrivileged } from "../utils";
 
 const captchaProvider = config.Get("CAPTCHA_PROVIDER") as CaptchaProvider;
 
-if (Object.keys(CaptchaProvider).includes(captchaProvider)) {
+if (!Object.keys(CaptchaProvider).includes(captchaProvider)) {
   throw new Error(`⭕ - Invalid captcha provider: ${captchaProvider}`);
 }
 

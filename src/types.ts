@@ -40,13 +40,13 @@ export enum CaptchaProvider {
   recaptcha = "recaptcha",
 }
 
-export type DripRequestType = {
+export interface DripRequestType {
   address: string;
   amount: bigint;
   parachain_id: string;
   sender?: string;
   captchaResponse?: string;
-};
+}
 
 export interface BotRequestType {
   address: string;
@@ -55,8 +55,8 @@ export interface BotRequestType {
   sender?: string;
 }
 
-export type FaucetRequestType = {
+export interface FaucetRequestType {
   address: string;
   parachain_id: string;
   captchaResponse?: string;
-};
+}

@@ -12,22 +12,19 @@ yarn simple-git-hooks
 ```
 
 #### start local database:
-
 ```bash
 yarn dev:db
 ```
 
 #### run migrations:
-
 ```bash
 yarn migrations:run
 ```
 
 #### creating migrations:
-
-- update entities in `src/db/entity`
-- run `yarn migrations:generate src/db/migration/<migration_name>`
-- import generated migration to `src/db/dataSource.ts`
+* update entities in `src/db/entity`
+* run `yarn migrations:generate src/db/migration/<migration_name>`
+* import generated migration to `src/db/dataSource.ts`
 
 #### To launch a hot-reloading dev environment
 
@@ -40,7 +37,6 @@ yarn dev
 Definition with explanation is in `./env.faucet.config.json`
 
 Copy example file to real env and change its values:
-
 ```bash
 $ cp example.env .env
 ```
@@ -120,7 +116,7 @@ An official [substrate-faucet helm chart](https://github.com/paritytech/helm-cha
 
 ### Misc:
 
-- Bump API: `yarn upgrade @polkadot/util@latest @polkadot/wasm-crypto@latest @polkadot/keyring@latest @polkadot/x-randomvalues@latest @polkadot/api@latest @polkadot/keyring@latest @polkadot/util-crypto@latest`
-- Server can be queried for Prometheus metrics via `/metrics`
-- Readiness check URL via `ready`
-- Health check URL via `/health`
+* Bump API: `yarn upgrade @polkadot/util@latest @polkadot/wasm-crypto@latest @polkadot/keyring@latest @polkadot/x-randomvalues@latest @polkadot/api@latest @polkadot/keyring@latest @polkadot/util-crypto@latest`
+* Server can be queried for Prometheus metrics via `/metrics`
+* Readiness check URL via `ready`
+* Health check URL via `/health`

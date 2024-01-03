@@ -32,6 +32,7 @@
           siteKey: captchaKey,
           theme: colorTheme,
           callback: "onToken",
+          "chalexpired-callback": "onExpiredToken",
         });
       } else if (captchaProvider === CaptchaProvider.recaptcha) {
         if (!window.grecaptcha) {
@@ -53,6 +54,11 @@
 
     window.onToken = (token) => {
       dispatch("token", token);
+      // Forces a new captcha on page reload
+      if (captchaProvider === CaptchaProvider.procaptcha) {
+        window.localStorage.removeItem("@prosopo/current_account");
+        window.localStorage.removeItem("@prosopo/provider");
+      }
     };
 
     // clean the token so the form becomes invalid

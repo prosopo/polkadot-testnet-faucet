@@ -28,19 +28,19 @@
   "license": "ISC",
   "lint-staged": {
     "'./src/**/*.js'": [
-      "npx prettier --write",
+      "prettier --write",
       "eslint --fix"
     ],
     "'./src/**/*.ts'": [
-      "npx prettier --write",
+      "prettier --write",
       "eslint --fix"
     ],
     "'./client/**/*.js'": [
-      "cd client && npx prettier --write",
+      "cd client && prettier --write",
       "cd client && eslint --fix"
     ],
     "'./client/**/*.ts'": [
-      "cd client && npx prettier --write",
+      "cd client && prettier --write",
       "cd client && eslint --fix"
     ]
   },
@@ -87,8 +87,6 @@
     "joi": "^17.6.4",
     "lint-staged": "^12.3.8",
     "nodemon": "^2.0.19",
-    "prettier": "^3.0.3",
-    "prettier-plugin-svelte": "^3.0.3",
     "simple-git-hooks": "^2.7.0",
     "supertest": "^6.3.3",
     "testcontainers": "^9.9.1",
