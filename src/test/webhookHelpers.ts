@@ -4,9 +4,9 @@ import Joi from "joi";
 export async function drip(webEndpoint: string, address: string, parachainId?: string): Promise<{
   hash: string
 }> {
-  const body: { address: string, procaptcha: string, parachain_id?: string } = {
+  const body: { address: string, captchaResponse: string, parachain_id?: string } = {
     address: address,
-    procaptcha: "anything goes"
+    captchaResponse: "anything goes"
   };
   if (parachainId) {
     body.parachain_id = parachainId;
