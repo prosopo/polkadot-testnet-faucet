@@ -35,8 +35,12 @@ export class DripRequestHandler {
     const { external, address: addr, parachain_id, amount } = opts;
     counters.totalRequests.inc();
 
-    if (external && !(await this.captchaService.validate(opts.captchaResponse)))
-      return { error: "Captcha validation was unsuccessful" };
+    if (external) {
+      const captchaValidate = await this.captchaService.validate(opts.captchaResponse);
+      console.log("Captcha validate response", JSON.stringify(captchaValidate));
+      if (!captchaValidate)
+        return { error: `Captcha validation was unsuccessful. Captcha response was: ${opts.captchaResponse}` };
+    }
     if (!isParachainValid(parachain_id))
       return { error: "Parachain invalid. Be sure to set a value between 1000 and 9999" };
 

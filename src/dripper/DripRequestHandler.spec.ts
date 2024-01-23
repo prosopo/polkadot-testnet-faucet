@@ -147,7 +147,7 @@ describe("DripRequestHandler", () => {
 
     it("Returns an error response if captcha is invalid", async () => {
       const result = await handler.handleRequest({ ...defaultRequest, captchaResponse: "invalid" });
-      expect(result).toEqual({ error: "Captcha validation was unsuccessful" });
+      expect(result).toEqual({ error: `Captcha validation was unsuccessful. Captcha response was: invalid` });
     });
 
     it("Works with empty parachain_id", async () => {
