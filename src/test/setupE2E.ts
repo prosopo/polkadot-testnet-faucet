@@ -133,7 +133,6 @@ export async function setup(contractsApiPromise: ApiPromise, prosopoSiteKey: str
 }
 
 export async function teardown(setup: E2ESetup): Promise<void> {
-  //add a timeout for debug
   await setup.appContainer.stop();
   await setup.dbContainer.stop();
   await setup.matrixContainer.stop();
