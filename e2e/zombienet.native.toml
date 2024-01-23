@@ -31,6 +31,5 @@ chain = "contracts-rococo-local"
   name = "contracts"
   ws_port = 9988
   command = "polkadot-parachain"
-  # command = "substrate-contracts-node"
   args = ["-lparachain=debug", "--discover-local"]
 
