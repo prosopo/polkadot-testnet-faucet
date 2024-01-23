@@ -1,4 +1,3 @@
-import {ApiPromise} from "@polkadot/api";
 import {ContractDeployer, getPairAsync, ProsopoCaptchaContract, wrapQuery} from "@prosopo/contract";
 import {ContractAbi, ContractFile, DappPayee, Hash, Payee, RandomProvider} from "@prosopo/captcha-contract";
 import {hexToU8a, stringToU8a} from "@polkadot/util";
@@ -6,6 +5,7 @@ import {Abi} from "@polkadot/api-contract";
 import {randomAsHex} from "@polkadot/util-crypto";
 import {EventRecord} from "@polkadot/types/interfaces";
 import {KeyringPair} from "@polkadot/keyring/types";
+import {ApiPromise} from "@polkadot/api";
 
 export type ProcaptchaTestSetup = { contract: ProsopoCaptchaContract, contractAddress: string, testAccount: string, siteKey: string }
 
