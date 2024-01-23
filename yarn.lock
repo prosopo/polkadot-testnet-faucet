@@ -1338,7 +1338,7 @@
     tslib "^2.6.2"
     ws "^8.14.2"
 
-"@prosopo/api@0.2.29", "@prosopo/api@^0.2.29":
+"@prosopo/api@0.2.29":
   version "0.2.29"
   resolved "https://registry.yarnpkg.com/@prosopo/api/-/api-0.2.29.tgz#7cf9a2daecbba1edd1f6c63c5281dd062a68bbaf"
   integrity sha512-pPUhK1ys0A7d3G6IIZTYLbLWHfWI+/CKWGv5uQdioeaC4+3VUGfuqIZ1bKxnUt2YjPmeH6djwn7Vj3KKqiLGIA==
