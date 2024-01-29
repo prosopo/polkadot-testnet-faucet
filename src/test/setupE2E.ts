@@ -14,7 +14,6 @@ import {
   setupProcaptcha
 } from "src/test/setupE2EProcaptcha";
 import {ApiPromise} from "@polkadot/api";
-import {RandomProvider} from "@prosopo/captcha-contract";
 
 
 export type E2ESetup = {
@@ -119,7 +118,7 @@ export async function setup(contractsApiPromise: ApiPromise, prosopoSiteKey: str
 
   const procaptchaDetails: PropcatchaDetails = { contract, endpoint: procaptchaEndpoint, contractAddress, siteKey: prosopoSiteKey, testAccount  }
 
-  await new Promise(r => setTimeout(r, 2000));
+  await new Promise(r => setTimeout(r, 300_000_000));
 
   return {
     matrixContainer,

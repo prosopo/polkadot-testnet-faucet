@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import crypto from "crypto";
 
 import { AppDataSource } from "src/db/dataSource";
