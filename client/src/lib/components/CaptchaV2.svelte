@@ -1,9 +1,10 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
   import Cross from "./icons/Cross.svelte";
+  import { CaptchaProvider } from "$lib/utils/captcha";
 
   export let captchaKey: string;
-
+  export let captchaProvider: string;
   const dispatch = createEventDispatcher<{ token: string }>();
 
   const captchaId = "captcha_element";
@@ -20,20 +21,44 @@
             ? "dark"
             : "light"
           : theme;
+      const mobileScreen = window.innerHeight > window.innerWidth;
 
-      if (!window.procaptcha) {
+      if (captchaProvider === CaptchaProvider.procaptcha) {
+        if (!window.procaptcha) {
+          captchaError = true;
+          throw new Error(`${captchaProvider} is undefined!`);
+        }
+        window.procaptcha.render(captchaId, {
+          siteKey: captchaKey,
+          theme: colorTheme,
+          callback: "onToken",
+          "chalexpired-callback": "onExpiredToken",
+        });
+      } else if (captchaProvider === CaptchaProvider.recaptcha) {
+        if (!window.grecaptcha) {
+          captchaError = true;
+          throw new Error("grecaptcha is undefined!");
+        }
+        window.grecaptcha.render(captchaId, {
+          sitekey: captchaKey,
+          theme: colorTheme,
+          callback: "onToken",
+          size: mobileScreen ? "compact" : "normal",
+          "expired-callback": "onExpiredToken",
+        });
+      } else {
         captchaError = true;
-        throw new Error("procaptcha is undefined!");
+        throw new Error(`Unknown captcha provider: ${captchaProvider}`);
       }
-      window.procaptcha.render(captchaId, {
-        siteKey: captchaKey,
-        theme: colorTheme,
-        callback: "onToken",
-      });
     };
 
     window.onToken = (token) => {
       dispatch("token", token);
+      // Forces a new captcha on page reload
+      if (captchaProvider === CaptchaProvider.procaptcha) {
+        window.localStorage.removeItem("@prosopo/current_account");
+        window.localStorage.removeItem("@prosopo/provider");
+      }
     };
 
     // clean the token so the form becomes invalid
@@ -49,7 +74,15 @@
 
 <svelte:head>
   {#if componentMounted}
-    <script src="https://prosopo.io/js/procaptcha.bundle.js?render=implicit&onload=captchaLoaded" async defer></script>
+    {#if captchaProvider === "procaptcha"}
+      <script
+        src="https://prosopo.io/js/procaptcha.bundle.js?render=implicit&onload=captchaLoaded"
+        async
+        defer
+      ></script>
+    {:else}
+      <script src="https://www.google.com/recaptcha/api.js?onload=captchaLoaded&render=explicit" async defer></script>
+    {/if}
   {/if}
 </svelte:head>
 
@@ -57,7 +90,7 @@
   <div class="alert alert-error shadow-lg" data-testid="error">
     <div>
       <Cross />
-      <span>Error loading Prosopo Captcha. Please reload the page.</span>
+      <span>Error loading {captchaProvider} Captcha. Please reload the page.</span>
     </div>
   </div>
 {/if}

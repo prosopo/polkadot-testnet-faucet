@@ -13,7 +13,7 @@ import { isAccountPrivileged } from "../utils";
 
 const captchaProvider = config.Get("CAPTCHA_PROVIDER") as CaptchaProvider;
 
-if (Object.keys(CaptchaProvider).includes(captchaProvider)) {
+if (!Object.keys(CaptchaProvider).includes(captchaProvider)) {
   throw new Error(`⭕ - Invalid captcha provider: ${captchaProvider}`);
 }
 
@@ -21,9 +21,10 @@ const dripRequestHandler = getDripRequestHandlerInstance(polkadotActions, captch
 
 const botUserId = config.Get("MATRIX_BOT_USER_ID");
 const accessToken = config.Get("MATRIX_ACCESS_TOKEN");
-const deployedRef = config.Get("DEPLOYED_REF");
-const networkName = config.Get("NETWORK");
 
+const deployedRef = config.Get("DEPLOYED_REF");
+
+const networkName = config.Get("NETWORK");
 const networkData = getNetworkData(networkName);
 
 const ignoreList = config

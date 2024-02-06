@@ -1,6 +1,6 @@
 import { Keyring } from "@polkadot/keyring";
 import { KeyringPair } from "@polkadot/keyring/types";
-import { waitReady } from "@polkadot/wasm-crypto";
+import { cryptoWaitReady } from "@polkadot/util-crypto";
 import BN from "bn.js";
 
 import { config } from "../../config";
@@ -41,7 +41,7 @@ export class PolkadotActions {
     try {
       const keyring = new Keyring({ type: "sr25519" });
 
-      waitReady().then(() => {
+      cryptoWaitReady().then(() => {
         this.account = keyring.addFromMnemonic(mnemonic);
 
         // We do want the following to just start and run
@@ -96,43 +96,48 @@ export class PolkadotActions {
   }
 
   async teleportTokens(dripAmount: bigint, address: string, parachain_id: string): Promise<DripResponse> {
-    logger.info("💸 teleporting tokens");
+    logger.info(
+      `💸 teleporting ${dripAmount} tokens to ${address} from ${this.account ? this.account.address.toString() : ""} to parachain ${parachain_id}`,
+    );
 
-    const dest = polkadotApi.createType("XcmVersionedMultiLocation", {
-      V3: polkadotApi.createType("MultiLocationV2", {
-        interior: polkadotApi.createType("JunctionsV2", {
-          X1: polkadotApi.createType("JunctionV2", { Parachain: polkadotApi.createType("Compact<u32>", parachain_id) }),
-        }),
+    const dest = {
+      V3: {
+        interior: {
+          X1: {
+            Parachain: parachain_id,
+          },
+        },
         parents: 0,
-      }),
-    });
+      },
+    };
 
-    const beneficiary = polkadotApi.createType("XcmVersionedMultiLocation", {
-      V3: polkadotApi.createType("MultiLocationV2", {
-        interior: polkadotApi.createType("JunctionsV2", {
-          X1: polkadotApi.createType("JunctionV2", {
-            AccountId32: { id: address, network: polkadotApi.createType("NetworkId", "Any") },
-          }),
-        }),
+    const addressHex = polkadotApi.registry.createType("AccountId", address).toHex();
+    const beneficiary = {
+      V3: {
+        interior: {
+          X1: {
+            AccountId32: { id: addressHex, network: null },
+          },
+        },
         parents: 0,
-      }),
-    });
+      },
+    };
 
-    const assets = polkadotApi.createType("XcmVersionedMultiAssets", {
+    const assets = {
       V3: [
-        polkadotApi.createType("XcmV2MultiAsset", {
-          fun: polkadotApi.createType("FungibilityV2", { Fungible: dripAmount }),
-          id: polkadotApi.createType("XcmAssetId", {
-            Concrete: polkadotApi.createType("MultiLocationV2", {
-              interior: polkadotApi.createType("JunctionsV2", "Here"),
+        {
+          fun: { Fungible: dripAmount },
+          id: {
+            Concrete: {
+              interior: "Here",
               parents: 0,
-            }),
-          }),
-        }),
+            },
+          },
+        },
       ],
-    });
+    };
 
-    const weightLimit = polkadotApi.createType("XcmV3WeightLimit", { Unlimited: null });
+    const weightLimit = { Unlimited: null };
 
     const feeAssetItem = 0;
 
@@ -174,7 +179,7 @@ export class PolkadotActions {
         result = await this.teleportTokens(amount, address, parachain_id);
       } else {
         logger.info("💸 sending tokens");
-        const transfer = polkadotApi.tx.balances.transfer(address, amount);
+        const transfer = polkadotApi.tx.balances.transferKeepAlive(address, amount);
         const hash = await transfer.signAndSend(this.account, { nonce: -1 });
         result = { hash: hash.toHex() };
       }

@@ -4,7 +4,7 @@ import type { NetworkData } from "./networkData";
 
 export async function request(
   address: string,
-  procaptcha: string,
+  captchaResponse: string,
   network: NetworkData,
   parachain?: number,
 ): Promise<string> {
@@ -12,16 +12,16 @@ export async function request(
     return await boilerplateRequest(address);
   }
   const chain = parachain && parachain > 0 ? parachain.toString() : undefined;
-  return await faucetRequest(address, procaptcha, network, chain);
+  return await faucetRequest(address, captchaResponse, network, chain);
 }
 
 export async function faucetRequest(
   address: string,
-  procaptcha: string,
+  captchaResponse: string,
   network: NetworkData,
   parachain_id?: string,
 ): Promise<string> {
-  const body = { address, parachain_id, procaptcha };
+  const body = { address, parachain_id, captchaResponse };
 
   const url = network.endpoint;
   if (!url) {
