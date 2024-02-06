@@ -11,7 +11,6 @@ const config: PlaywrightTestConfig = {
       PUBLIC_FAUCET_URL: "https://example.com/test",
     },
   },
-
   testDir: "tests",
 };
 
