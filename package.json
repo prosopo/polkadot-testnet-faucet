@@ -19,7 +19,6 @@
     "postinstall": "yarn generate:types",
     "prebuild": "yarn generate:types",
     "prepare": "ts-patch install -s",
-    "setup:dev": "tsx ./src/test/setupDev.ts",
     "start": "node ./build/src/start.js",
     "test": "jest",
     "test:e2e": "NODE_OPTIONS='--experimental-vm-modules --es-module-specifier-resolution=node' jest -c jest.e2e.config.js --runInBand",

@@ -9,15 +9,17 @@ import {ApiPromise} from "@polkadot/api";
 
 export type ProcaptchaTestSetup = { contract: ProsopoCaptchaContract, contractAddress: string, testAccount: string, siteKey: string }
 
-export async function setupProcaptcha(api: ApiPromise, siteKey: string): Promise<ProcaptchaTestSetup> {
+export async function setupProcaptcha(api: ApiPromise, siteKey: string, port:number): Promise<ProcaptchaTestSetup> {
     try {
         await api.isReady;
         const alicePair = await getPairAsync(undefined, '//Alice', undefined, 'sr25519', 42)
         const contract = await deployProcaptchaContract(api, alicePair);
+        console.log("Captcha contract address", contract.address.toString())
+
         // Set the calling pair to Bob so that he is registered as the provider (the calling account is registered in the contract as the provider)
         contract.pair = await getPairAsync(undefined, '//Bob', undefined, 'sr25519', 42);
 
-        await procaptchaProviderRegister(contract);
+        await procaptchaProviderRegister(contract, port);
         console.log(`Registered Bob ${contract.pair.address} as provider`)
         await procaptchaProviderSetDataset(contract);
 
@@ -58,11 +60,11 @@ export async function deployProcaptchaContract(api: ApiPromise, pair: KeyringPai
 
 }
 
-export async function procaptchaProviderRegister(contract: ProsopoCaptchaContract): Promise<void> {
+export async function procaptchaProviderRegister(contract: ProsopoCaptchaContract, port: number): Promise<void> {
     try {
         console.log("Registering Procaptcha provider")
         const providerRegisterArgs: Parameters<typeof contract.query.providerRegister> = [
-            Array.from(stringToU8a('http://localhost:9229')),
+            Array.from(stringToU8a(`http://host.docker.internal:${port}`)),
             0,
             Payee.dapp,
             {
