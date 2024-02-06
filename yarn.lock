@@ -1157,7 +1157,7 @@
   dependencies:
     "@prosopo/types" "0.2.32"
 
-"@prosopo/captcha-contract@0.2.32":
+"@prosopo/captcha-contract@0.2.32", "@prosopo/captcha-contract@^0.2.32":
   version "0.2.32"
   resolved "https://registry.yarnpkg.com/@prosopo/captcha-contract/-/captcha-contract-0.2.32.tgz#05f8d69c6665888225abc5f996c48cc2ce6837bb"
   integrity sha512-RFMGaT7wlz08bm1qcFQRoR+k1HrR3SvvnHX7pui5WUrAlUzEOmYzQvQ6tBM795bWmWdx/boNvgcMQSNcUBLTcw==
