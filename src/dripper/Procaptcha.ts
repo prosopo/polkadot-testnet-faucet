@@ -8,9 +8,9 @@ import { logger } from "../logger";
 
 export class Procaptcha {
   constructor(
-    private secret: string = config.Get("PROSOPO_SITE_KEY").toString(),
-    private contractAddress: string | undefined = config.Get("PROSOPO_CONTRACT_ADDRESS").toString(),
-    private readonly endpoint: string | undefined = config.Get("PROSOPO_SUBSTRATE_ENDPOINT").toString(),
+    private secret: string = config.Get("PROSOPO_SITE_KEY"),
+    private contractAddress: string | undefined = config.Get("PROSOPO_CONTRACT_ADDRESS"),
+    private readonly endpoint: string | undefined = config.Get("PROSOPO_SUBSTRATE_ENDPOINT"),
     private readonly maxVerifiedTime: number = Number(config.Get("PROCAPTCHA_MAX_VERIFIED_TIME")),
   ) {
     if (!this.maxVerifiedTime) {

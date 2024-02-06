@@ -13,8 +13,8 @@ import { Drip } from "src/db/entity/Drip";
 import { drip } from "src/test/webhookHelpers";
 
 import { getLatestMessage, postMessage } from "./test/matrixHelpers";
-import { destroyDataSource, E2ESetup, getDataSource, PropcatchaDetails, setup, teardown } from "./test/setupE2E";
-import { procaptchaGetRandomProvider } from "./test/setupE2EProcaptcha";
+import { destroyDataSource, E2ESetup, getDataSource, setup, teardown } from "./test/setupE2E";
+import { procaptchaGetRandomProvider, ProcaptchaTestSetup } from "./test/setupE2EProcaptcha";
 
 const randomAddress = () => createTestKeyring().addFromSeed(randomAsU8a(32)).address;
 const sha256 = (x: string) => crypto.createHash("sha256").update(x, "utf8").digest("hex");
@@ -28,7 +28,16 @@ describe("Faucet E2E", () => {
   let webEndpoint: string;
   let e2eSetup: E2ESetup;
   let dripRepository: Repository<Drip>;
-  let procaptchaDetails: PropcatchaDetails;
+  let procaptchaDetails: ProcaptchaTestSetup;
+
+  /**
+   * For faster debugging, make all the providers the same and run a single
+   * substrate-contracts-node in manual seal (dev) mode instead of using zombienet.
+   * ```bash
+   *     substrate-contracts-node --dev --rpc-port 9988 --rpc-cors all --unsafe-rpc-external --rpc-methods unsafe
+   * ```
+   * This won't pass the tests as XCM will not exist, but it will make development easier.
+   */
 
   const polkadotApi = new ApiPromise({
     // Zombienet relaychain node.
@@ -72,11 +81,9 @@ describe("Faucet E2E", () => {
     dripRepository = AppDataSource.getRepository(Drip);
 
     console.log("beforeAll: done");
-  }, 300_000);
+  }, 900_000);
 
   afterAll(async () => {
-    // set a timeout to allow for debugging
-    await new Promise((resolve) => setTimeout(resolve, 300_000));
     await polkadotApi.disconnect();
     await parachainApi.disconnect();
     await rococoContractsParachainApi.disconnect();
@@ -205,7 +212,7 @@ describe("Faucet E2E", () => {
       procaptchaDetails.siteKey,
       procaptchaDetails.testAccount,
     );
-    const result = await drip(webEndpoint, userAddress, undefined, procaptchaDetails.endpoint, randomProvider);
+    const result = await drip(webEndpoint, userAddress, undefined, randomProvider);
     console.log("result", result);
 
     expect(result.hash).toBeTruthy();
@@ -225,7 +232,7 @@ describe("Faucet E2E", () => {
       procaptchaDetails.siteKey,
       procaptchaDetails.testAccount,
     );
-    const result = await drip(webEndpoint, userAddress, "1000", procaptchaDetails.endpoint, randomProvider);
+    const result = await drip(webEndpoint, userAddress, "1000", randomProvider);
 
     expect(result.hash).toBeTruthy();
     await until(
@@ -243,7 +250,7 @@ describe("Faucet E2E", () => {
       procaptchaDetails.siteKey,
       procaptchaDetails.testAccount,
     );
-    const promise = drip(webEndpoint, userAddress, "100", procaptchaDetails.endpoint, randomProvider);
+    const promise = drip(webEndpoint, userAddress, "100", randomProvider);
     await expect(promise).rejects.toThrow();
     await expect(promise).rejects.toMatchObject({
       message: expect.stringMatching("Parachain invalid. Be sure to set a value between 1000 and 9999"),
@@ -262,7 +269,7 @@ describe("Faucet E2E", () => {
       procaptchaDetails.siteKey,
       procaptchaDetails.testAccount,
     );
-    const result = await drip(webEndpoint, userAddress, undefined, procaptchaDetails.endpoint, randomProvider);
+    const result = await drip(webEndpoint, userAddress, undefined, randomProvider);
 
     expect(result.hash).toBeTruthy();
   });
@@ -279,7 +286,7 @@ describe("Faucet E2E", () => {
       procaptchaDetails.siteKey,
       procaptchaDetails.testAccount,
     );
-    await expect(drip(webEndpoint, userAddress, undefined, procaptchaDetails.endpoint, randomProvider)).rejects.toThrow(
+    await expect(drip(webEndpoint, userAddress, undefined, randomProvider)).rejects.toThrow(
       "Requester has reached their daily quota. Only request once per day",
     );
   });

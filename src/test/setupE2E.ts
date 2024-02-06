@@ -14,7 +14,6 @@ import {
   setupProcaptcha
 } from "src/test/setupE2EProcaptcha";
 import {ApiPromise} from "@polkadot/api";
-import {RandomProvider} from "@prosopo/captcha-contract";
 
 
 export type E2ESetup = {
@@ -24,7 +23,7 @@ export type E2ESetup = {
   procaptchaContainer: StartedTestContainer
   matrixSetup: MatrixSetup;
   webEndpoint: string;
-  procaptchaDetails: PropcatchaDetails;
+  procaptchaDetails: ProcaptchaTestSetup;
 }
 
 export type MatrixSetup = {
@@ -34,10 +33,6 @@ export type MatrixSetup = {
   matrixUrl: string;
   matrixPort: number;
 };
-
-export interface PropcatchaDetails extends ProcaptchaTestSetup {
-    endpoint: string;
-}
 
 let dataSourceOptions: PostgresConnectionOptions;
 let AppDataSource: DataSource | null = null;
@@ -75,13 +70,14 @@ function logConsumer(name: string): (stream: Readable) => Promise<void> {
 export async function setup(contractsApiPromise: ApiPromise, prosopoSiteKey: string): Promise<E2ESetup> {
   await fs.mkdir(containterLogsDir, { recursive: true });
 
-  // set up the Prosopo Procaptcha contract on zombienet
-  const { contract, contractAddress, testAccount} = await setupProcaptcha(contractsApiPromise, prosopoSiteKey);
-  console.log("Captcha contract address", contractAddress.toString())
-
   // set up a mock Procaptcha provider for the faucet to use
   const procaptchContainerPromise = setupProcaptchaMockProvider();
   procaptchContainerPromise.then(() => console.log("Procaptcha provider: up"));
+  const procaptchaProviderPort = (await procaptchContainerPromise).getFirstMappedPort();
+
+  // set up the Prosopo Procaptcha contract on zombienet
+  const { contract, contractAddress, testAccount} = await setupProcaptcha(contractsApiPromise, prosopoSiteKey, procaptchaProviderPort);
+
 
   // doing matrix and db setups in parallel
   const matrixContainerPromise = setupMatrixContainer();
@@ -113,13 +109,12 @@ export async function setup(contractsApiPromise: ApiPromise, prosopoSiteKey: str
   console.log("App container is up", appContainer.getId());
 
   console.log("App container host", appContainer.getHost());
-  const webEndpoint = `http://${appContainer.getHost()}:5555`;
 
-  const procaptchaEndpoint = `http://${procaptchaContainer.getHost()}:9229`;
+  const webEndpoint = `http://localhost:${appContainer.getFirstMappedPort()}`;
 
-  const procaptchaDetails: PropcatchaDetails = { contract, endpoint: procaptchaEndpoint, contractAddress, siteKey: prosopoSiteKey, testAccount  }
+  console.log("App container endpoint", webEndpoint)
 
-  await new Promise(r => setTimeout(r, 2000));
+  const procaptchaDetails: ProcaptchaTestSetup = { contract, contractAddress, siteKey: prosopoSiteKey, testAccount  }
 
   return {
     matrixContainer,
@@ -138,8 +133,6 @@ export async function teardown(setup: E2ESetup): Promise<void> {
   await setup.matrixContainer.stop();
   await setup.procaptchaContainer.stop();
 }
-
-
 
 async function setupMatrixContainer(): Promise<StartedTestContainer> {
   const image = await GenericContainer.fromDockerfile("e2e", "matrix_container.Dockerfile").build();
@@ -187,8 +180,9 @@ async function setupMatrix(matrixContainer: StartedTestContainer): Promise<Matri
 
 async function setupProcaptchaMockProvider() {
   return await new GenericContainer("prosopo/provider-mock:0.0.2")
-      .withNetworkMode('host')
+      .withExposedPorts(9229)
       .withWaitStrategy(Wait.forListeningPorts())
+      .withExtraHosts([{ host: "host.docker.internal", ipAddress: "host-gateway" }])
       .withLogConsumer(logConsumer("faucet-procaptcha-provider"))
       .start();
 }
@@ -247,8 +241,7 @@ async function setupAppContainer(params: {
   prosopoSiteKey: string
 }): Promise<StartedTestContainer> {
   const appContainer = new GenericContainer("polkadot-testnet-faucet")
-    .withNetworkMode('host')
-    //.withExposedPorts(5555) https://github.com/testcontainers/testcontainers-java/issues/5151#issuecomment-1449632759
+    .withExposedPorts(5555)
     .withEnvironment({
       SMF_CONFIG_NETWORK: "e2e",
 
@@ -273,7 +266,7 @@ async function setupAppContainer(params: {
       // Deployed Prosopo procaptcha contract
       SMF_CONFIG_PROSOPO_CONTRACT_ADDRESS: params.captchaContractAddress,
       // Local zombienet contracts node for testing
-      SMF_CONFIG_PROSOPO_SUBSTRATE_ENDPOINT: "ws://0.0.0.0:9988" // see zombienet.native.toml
+      SMF_CONFIG_PROSOPO_SUBSTRATE_ENDPOINT: "ws://host.docker.internal:9988" // see zombienet.native.toml
     })
     .withWaitStrategy(Wait.forListeningPorts())
     .withExtraHosts([{ host: "host.docker.internal", ipAddress: "host-gateway" }])

@@ -8,7 +8,7 @@ const PROCAPTCHA_VALID_CAPTCHA = `{
   "user": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
   "dapp": "5HUBceb4Du6dvMA9BiwN5VzUrzUsX9Zp7z7nSR2cC1TCv5jg",
   "providerUrl": "https://mockprovider.app.runonflux.io/",
-  "blockNumber": "3604097"
+  "blockNumber": 3604097
 }`;
 
 // Bob's address
@@ -16,7 +16,7 @@ const PROCAPTCHA_INVALID_CAPTCHA = `{
   "user": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",
   "dapp": "5HUBceb4Du6dvMA9BiwN5VzUrzUsX9Zp7z7nSR2cC1TCv5jg",
   "providerUrl": "https://mockprovider.app.runonflux.io/",
-  "blockNumber": "0000000"
+  "blockNumber": 0
 }`;
 
 const PROSOPO_SITE_KEY = "5C4hrfjw9DjXZTzV3MwzrrAr9P1MJhSrvWGWqi1eSuyUpnhM";
