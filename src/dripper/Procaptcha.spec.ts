@@ -7,7 +7,7 @@ import { Procaptcha } from "./Procaptcha";
 const PROCAPTCHA_VALID_CAPTCHA = `{
   "user": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY",
   "dapp": "5HUBceb4Du6dvMA9BiwN5VzUrzUsX9Zp7z7nSR2cC1TCv5jg",
-  "providerUrl": "https://mockprovider.app.runonflux.io/",
+  "providerUrl": "https://mockprovider.prosopo.io/",
   "blockNumber": 3604097
 }`;
 
@@ -15,7 +15,7 @@ const PROCAPTCHA_VALID_CAPTCHA = `{
 const PROCAPTCHA_INVALID_CAPTCHA = `{
   "user": "5FHneW46xGXgs5mUiveU4sbTyGBzmstUspZC92UhjJM694ty",
   "dapp": "5HUBceb4Du6dvMA9BiwN5VzUrzUsX9Zp7z7nSR2cC1TCv5jg",
-  "providerUrl": "https://mockprovider.app.runonflux.io/",
+  "providerUrl": "https://mockprovider.prosopo.io/",
   "blockNumber": 0
 }`;
 

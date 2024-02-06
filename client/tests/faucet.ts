@@ -36,7 +36,7 @@ const getFormElements = async (page: Page, captchaProvider: "recaptcha" | "proca
       captcha = captchaFrame?.locator("#recaptcha-anchor") as Locator;
     } else if (captchaProvider === "procaptcha") {
       const testAccount = "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"; // Alice's address
-      const testProvider = "https://mockprovider.app.runonflux.io"; // Mock provider
+      const testProvider = "https://mockprovider.prosopo.io"; // Mock provider
 
       // Tell the page that a captcha provider has previously been used and inject the mock provider
       await page.evaluate((provider) => localStorage.setItem("@prosopo/provider", provider), testProvider);
