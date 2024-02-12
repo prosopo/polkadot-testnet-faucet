@@ -1150,17 +1150,17 @@
     tslib "^2.6.2"
     ws "^8.15.1"
 
-"@prosopo/api@0.2.33":
-  version "0.2.33"
-  resolved "https://registry.yarnpkg.com/@prosopo/api/-/api-0.2.33.tgz#128acca8fd80d03e6e7ea759cf07306b82f8439a"
-  integrity sha512-4zLGH2x3Umn4tKBKCSrBBzVFovDWs3lDzfaCl68g0UFG6zDBh/LsxlXVi4vd997Qc468HCR1EzqzE6EwPwsC3Q==
+"@prosopo/api@0.2.38":
+  version "0.2.38"
+  resolved "https://registry.yarnpkg.com/@prosopo/api/-/api-0.2.38.tgz#96f4b9b2eab226e7abf53caa528288c757f74c4b"
+  integrity sha512-qj2Pd7CCQwC19jddY7FdXj5YfSBddjdn5nJ3bSBFItWIRdD50FQLgoR3c5JCI6ShnKWoJgKPYplo/hh0ei7K5Q==
   dependencies:
-    "@prosopo/types" "0.2.33"
+    "@prosopo/types" "0.2.38"
 
-"@prosopo/captcha-contract@0.2.33":
-  version "0.2.33"
-  resolved "https://registry.yarnpkg.com/@prosopo/captcha-contract/-/captcha-contract-0.2.33.tgz#de3d0d8e1d1083f0bfc996af6666dad8e0e094a8"
-  integrity sha512-bzut48fuCKY0gIxfAjnFs7pfZBWz39NxC43SxJW7tw/xDRMl0EDXymlhM1PnonMa0S+5VriPQEhLYcH9X2ZxGw==
+"@prosopo/captcha-contract@0.2.38":
+  version "0.2.38"
+  resolved "https://registry.yarnpkg.com/@prosopo/captcha-contract/-/captcha-contract-0.2.38.tgz#d3c331cc9580016ecf1d13d2972559f2ab936ed7"
+  integrity sha512-uIo0SMdTE0wlmetpJz6CE9ULyHEw49nno+Rr3n7PuFOEuOE4uKX6bNr06uiqiMWQK0tcnDwGYdDB8hRgVhMscw==
   dependencies:
     "@polkadot/api" "10.11.1"
     "@polkadot/api-contract" "10.11.1"
@@ -1175,17 +1175,17 @@
     "@prosopo/typechain-polkadot" "1.1.13"
     "@prosopo/typechain-types" "1.1.13"
 
-"@prosopo/common@0.2.33":
-  version "0.2.33"
-  resolved "https://registry.yarnpkg.com/@prosopo/common/-/common-0.2.33.tgz#48bc57fda2560997c7111d57da6d7c3fc04b5213"
-  integrity sha512-quwry6iJk15HzUI5E/698CAy84JglHCzqmKYRJCIJ7gMpJeQn4cNU2Zks0s5cpm3nb0KvPJVVLmT2GEFNzDmCQ==
+"@prosopo/common@0.2.38":
+  version "0.2.38"
+  resolved "https://registry.yarnpkg.com/@prosopo/common/-/common-0.2.38.tgz#f3611ad5659e83b892f59dd7075bc70b382095b9"
+  integrity sha512-Z1TExDafLWHU8+sL2ryrJVeAsXq4Z3uB9QGXihaOecytJEk4lQbJjt0A4sOWKvJ6yCt2Elxc1TC2OYGpHS8+ww==
   dependencies:
     "@polkadot/api" "10.11.1"
     "@polkadot/keyring" "12.6.1"
     "@polkadot/types" "10.11.1"
     "@polkadot/util" "12.6.1"
     "@polkadot/util-crypto" "12.6.1"
-    "@prosopo/util" "0.2.33"
+    "@prosopo/util" "0.2.38"
     consola "^3.2.3"
     i18next "^21.9.2"
     i18next-browser-languagedetector "^7.0.1"
@@ -1195,10 +1195,10 @@
     react-i18next "^11.18.6"
     zod "^3.22.3"
 
-"@prosopo/contract@0.2.33":
-  version "0.2.33"
-  resolved "https://registry.yarnpkg.com/@prosopo/contract/-/contract-0.2.33.tgz#fb206440fd7d34aef9a32eba4f5f553a6c247c70"
-  integrity sha512-yJBwmLbFZmCEr0rNSCjkOJGv0DIVpRwKZO3hCCV6oQbH2/eXfbR7wY3pqavWuIYKF0pKCuS6Z1oe6otn24j4cg==
+"@prosopo/contract@0.2.38":
+  version "0.2.38"
+  resolved "https://registry.yarnpkg.com/@prosopo/contract/-/contract-0.2.38.tgz#3164f72ff6dd3ef65ba4c1acba7261c99e283bd3"
+  integrity sha512-dGVszxsL65AvPwQ5jdixJlskmEYFDHeoSmy+bO07Ciqs2uWaqZ+QqrvupiLx/9B5hre2lAwUdX004R/A+tMMpQ==
   dependencies:
     "@polkadot/api" "10.11.1"
     "@polkadot/api-contract" "10.11.1"
@@ -1209,25 +1209,25 @@
     "@polkadot/types-create" "10.11.1"
     "@polkadot/util" "12.6.1"
     "@polkadot/util-crypto" "12.6.1"
-    "@prosopo/captcha-contract" "0.2.33"
-    "@prosopo/common" "0.2.33"
-    "@prosopo/types" "0.2.33"
-    "@prosopo/util" "0.2.33"
+    "@prosopo/captcha-contract" "0.2.38"
+    "@prosopo/common" "0.2.38"
+    "@prosopo/types" "0.2.38"
+    "@prosopo/util" "0.2.38"
     rxjs "^7.8.1"
 
-"@prosopo/server@^0.2.33":
-  version "0.2.33"
-  resolved "https://registry.yarnpkg.com/@prosopo/server/-/server-0.2.33.tgz#0b6a02bbf842e25b82cc9e307fce12b289de112d"
-  integrity sha512-srMSGNHSfztxhyCRIE0laLx3Vllnej4x3DBcBomdYrY2gR6l+PZKXOj3gZllPd/J39zpuC/5LNTfD+7pmSapwA==
+"@prosopo/server@^0.2.38":
+  version "0.2.38"
+  resolved "https://registry.yarnpkg.com/@prosopo/server/-/server-0.2.38.tgz#7d0490f1bef6f4567f93dd7e400fd31a7aeb97cf"
+  integrity sha512-PN+WzC3uAc02veoz6e7LM9U0NHXbwxaqZmZl/Q5Agm4cb+34Oa9HZgPICq65hziriPZv9+d8gpNZVwT45mShYg==
   dependencies:
     "@polkadot/api" "10.11.1"
     "@polkadot/keyring" "12.6.1"
     "@polkadot/rpc-provider" "10.11.1"
     "@polkadot/types" "10.11.1"
-    "@prosopo/api" "0.2.33"
-    "@prosopo/captcha-contract" "0.2.33"
-    "@prosopo/contract" "0.2.33"
-    "@prosopo/types" "0.2.33"
+    "@prosopo/api" "0.2.38"
+    "@prosopo/captcha-contract" "0.2.38"
+    "@prosopo/contract" "0.2.38"
+    "@prosopo/types" "0.2.38"
 
 "@prosopo/typechain-polkadot-parser@1.1.13":
   version "1.1.13"
@@ -1274,24 +1274,24 @@
     camelcase "^6.3.0"
     tslib "^2.6.2"
 
-"@prosopo/types@0.2.33", "@prosopo/types@^0.2.33":
-  version "0.2.33"
-  resolved "https://registry.yarnpkg.com/@prosopo/types/-/types-0.2.33.tgz#f81c9497435502cc90db401b167c0d68aceab067"
-  integrity sha512-s9/G67RjOMVFVmVapiBU9lyz1zBA2V6qzZUFKUcF9ilvXxKc4eZ2Dbb92/KTAspLqfel8xgRbIw7E3GgB3iXjw==
+"@prosopo/types@0.2.38", "@prosopo/types@^0.2.38":
+  version "0.2.38"
+  resolved "https://registry.yarnpkg.com/@prosopo/types/-/types-0.2.38.tgz#3707c0788733fdfb48d6e1f32cbf551f18a2f5ce"
+  integrity sha512-SnDvuyEsTxoD/n/vNn6BYHY33orQhy2UuzU4B+s7xvn/wIz7s/Oq+n6QjGRN6JnyP8RxJ9AOQiF2PQ+N9oQGOA==
   dependencies:
     "@polkadot/api" "10.11.1"
     "@polkadot/api-contract" "10.11.1"
     "@polkadot/types" "10.11.1"
     "@polkadot/types-codec" "10.11.1"
-    "@prosopo/captcha-contract" "0.2.33"
-    "@prosopo/common" "0.2.33"
+    "@prosopo/captcha-contract" "0.2.38"
+    "@prosopo/common" "0.2.38"
     consola "^3.2.3"
     zod "^3.22.3"
 
-"@prosopo/util@0.2.33":
-  version "0.2.33"
-  resolved "https://registry.yarnpkg.com/@prosopo/util/-/util-0.2.33.tgz#b4a1fb64d1814df8ac6c92883db4d20f5803bd79"
-  integrity sha512-/cSDEptr4N8GFJg1k4JlpXFqNu2E/134UpkeluSS9dino1pKm2FvoctOAreUZkiLJzeVmWfHJ6K85oMs66rx/w==
+"@prosopo/util@0.2.38":
+  version "0.2.38"
+  resolved "https://registry.yarnpkg.com/@prosopo/util/-/util-0.2.38.tgz#6f2170da98d1add1da2ed97e14fa6c30421816fd"
+  integrity sha512-FEMiTpPZqjHXPBwhWJZKKtdSKlc/lnay/kEiRZXvW/Qtsjrm3BjttO8jLhbaZJYviNM8HRe1SZHy1Zf502H8jw==
   dependencies:
     lodash "^4.17.21"
     seedrandom "^3.0.5"

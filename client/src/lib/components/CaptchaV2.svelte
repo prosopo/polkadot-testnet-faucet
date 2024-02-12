@@ -1,4 +1,4 @@
-<script lang="ts">
+<script type="module" lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
   import Cross from "./icons/Cross.svelte";
   import { CaptchaProvider } from "$lib/utils/captcha";
@@ -14,7 +14,7 @@
   let componentMounted: boolean;
 
   onMount(() => {
-    window.captchaLoaded = () => {
+    window.captchaLoaded = async () => {
       const colorTheme =
         theme === "auto"
           ? window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -76,7 +76,8 @@
   {#if componentMounted}
     {#if captchaProvider === "procaptcha"}
       <script
-        src="https://prosopo.io/js/procaptcha.bundle.js?render=implicit&onload=captchaLoaded"
+        type="module"
+        src="https://js.prosopo.io/js/procaptcha.bundle.js?render=implicit&onload=captchaLoaded"
         async
         defer
       ></script>
