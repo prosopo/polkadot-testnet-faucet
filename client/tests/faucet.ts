@@ -36,6 +36,7 @@ const getFormElements = async (page: Page, captchaProvider: "recaptcha" | "proca
       captcha = captchaFrame?.locator("#recaptcha-anchor") as Locator;
     } else if (captchaProvider === "procaptcha") {
       const testAccount = "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"; // Alice's address
+      const testSiteKey = "5C4hrfjw9DjXZTzV3MwzrrAr9P1MJhSrvWGWqi1eSuyUpnhM"; // Mock site key
       const testProvider = "https://mockprovider.prosopo.io"; // Mock provider
 
       // Tell the page that a captcha provider has previously been used and inject the mock provider
@@ -43,7 +44,7 @@ const getFormElements = async (page: Page, captchaProvider: "recaptcha" | "proca
 
       // Mock the verify api call and inject Alice's address before clicking the captcha
       await page.route("*/**/v1/prosopo/provider/verify", async (route) => {
-        const json = { user: testAccount };
+        const json = { user: testAccount, dapp: testSiteKey };
         await route.continue({ postData: json });
       });
       captcha = page.locator("#captcha_element input[type='checkbox']");
