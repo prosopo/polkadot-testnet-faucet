@@ -1514,7 +1514,7 @@
     "@prosopo/util" "0.2.41"
     rxjs "^7.8.1"
 
-"@prosopo/server@^0.2.39":
+"@prosopo/server@^0.2.41":
   version "0.2.41"
   resolved "https://registry.yarnpkg.com/@prosopo/server/-/server-0.2.41.tgz#2fd670b395caaea587242ee7cf0cad272ae67b1e"
   integrity sha512-+0hVC+gdwXliwoAyVlBlT+oyjTfvSC60I+84EeGiydkPpybKZ/r2qwZudbx6DldOm8k8qiEUPPcCueMmC0FzIA==
@@ -1573,7 +1573,7 @@
     camelcase "^6.3.0"
     tslib "^2.6.2"
 
-"@prosopo/types@0.2.41", "@prosopo/types@^0.2.39":
+"@prosopo/types@0.2.41", "@prosopo/types@^0.2.41":
   version "0.2.41"
   resolved "https://registry.yarnpkg.com/@prosopo/types/-/types-0.2.41.tgz#f44a5cfa991f8d5a7bf7c60c3c0665f2ec4136ff"
   integrity sha512-LlEJaBI9wLIJ5B/xloug/sNNcYAF6wGtO+HbTENoIrEXDWUyFuWNBAWha/CAINuQObjL9s8md7r+WGFes0J+ZA==
