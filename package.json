@@ -103,12 +103,12 @@
     }
   },
   "resolutions": {
-    "@polkadot/api": "10.11.1",
-    "@polkadot/api-augment": "10.11.1",
-    "@polkadot/keyring": "12.6.1",
-    "@polkadot/util": "12.6.1",
-    "@polkadot/util-crypto": "12.6.1",
-    "@polkadot/wasm-crypto": "7.2.1",
-    "@polkadot/x-randomvalues": "12.6.1"
+    "@polkadot/api": "10.11.2",
+    "@polkadot/api-augment": "10.11.2",
+    "@polkadot/keyring": "12.6.2",
+    "@polkadot/util": "12.6.2",
+    "@polkadot/util-crypto": "12.6.2",
+    "@polkadot/wasm-crypto": "7.3.2",
+    "@polkadot/x-randomvalues": "12.6.2"
   }
 }
