@@ -67,7 +67,7 @@ function logConsumer(name: string): (stream: Readable) => Promise<void> {
   };
 }
 
-export async function setup(contractsApiPromise: ApiPromise, prosopoSiteKey: string): Promise<E2ESetup> {
+export async function setup(contractsApiPromise: SomeApi, prosopoSiteKey: string): Promise<E2ESetup> {
   await fs.mkdir(containterLogsDir, { recursive: true });
 
   // set up a mock Procaptcha provider for the faucet to use

@@ -57,13 +57,17 @@ describe("Faucet E2E", () => {
 
   const parachainApi = parachainClient.getTypedApi(parachainDescriptors);
 
-  const rococoContractsParachainApi = new ApiPromise({
+  const rococoContractsClient = createClient(
     // Zombienet parachain node.
-    provider: new WsProvider("ws://127.0.0.1:9988"),
-    types: { Address: "AccountId", LookupSource: "AccountId" },
-  });
+    getChain({
+      provider: WebSocketProvider("ws://127.0.0.1:9988"),
+      keyring: [],
+    }),
+  );
 
-  type SomeApi = typeof relayChainApi | typeof parachainApi;
+  const rococoContractsApi = rococoContractsClient.getTypedApi(relaychainDescriptors);
+
+  type SomeApi = typeof relayChainApi | typeof parachainApi | typeof rococoContractsApi;
 
   const expectBalanceIncrease = async (useraddress: string, api: SomeApi, blocksNum: number) => {
     const startBlock = await api.query.System.Number.getValue({ at: "best" });
@@ -80,19 +84,12 @@ describe("Faucet E2E", () => {
   };
 
   beforeAll(async () => {
-    e2eSetup = await setup(rococoContractsParachainApi, PROSOPO_SITE_KEY);
+    e2eSetup = await setup(rococoContractsApi, PROSOPO_SITE_KEY);
 
     roomId = e2eSetup.matrixSetup.roomId;
     userAccessToken = e2eSetup.matrixSetup.userAccessToken;
     matrixUrl = e2eSetup.matrixSetup.matrixUrl;
     webEndpoint = e2eSetup.webEndpoint;
-    procaptchaDetails = e2eSetup.procaptchaDetails;
-
-    await polkadotApi.isReady;
-    await parachainApi.isReady;
-    await rococoContractsParachainApi.isReady;
-
-    console.log("Zombienet: done");
 
     const AppDataSource = await getDataSource();
     dripRepository = AppDataSource.getRepository(Drip);
@@ -103,7 +100,7 @@ describe("Faucet E2E", () => {
   afterAll(async () => {
     relaychainClient.destroy();
     parachainClient.destroy();
-    await rococoContractsParachainApi.disconnect();
+    rococoContractsClient.destroy();
     await destroyDataSource();
     if (e2eSetup) await teardown(e2eSetup);
   });
@@ -210,7 +207,7 @@ describe("Faucet E2E", () => {
 
   test("The web endpoint drips to a given address", async () => {
     const userAddress = randomAddress();
-    const initialBalance = await getUserBalance(userAddress);
+
     const randomProvider: RandomProvider = await procaptchaGetRandomProvider(
       procaptchaDetails.contract,
       procaptchaDetails.siteKey,
