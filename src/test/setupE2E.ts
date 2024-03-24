@@ -1,5 +1,4 @@
 import {GenericContainer, StartedTestContainer, Wait} from "testcontainers";
-
 import path from "path";
 import {promises as fs} from "fs";
 import {exec} from "child_process";
@@ -67,7 +66,7 @@ function logConsumer(name: string): (stream: Readable) => Promise<void> {
   };
 }
 
-export async function setup(contractsApiPromise: SomeApi, prosopoSiteKey: string): Promise<E2ESetup> {
+export async function setup(contractsApiPromise: any, prosopoSiteKey: string): Promise<E2ESetup> {
   await fs.mkdir(containterLogsDir, { recursive: true });
 
   // set up a mock Procaptcha provider for the faucet to use

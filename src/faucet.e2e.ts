@@ -65,17 +65,20 @@ describe("Faucet E2E", () => {
     }),
   );
 
-  const rococoContractsApi = rococoContractsClient.getTypedApi(relaychainDescriptors);
+  const rococoContractsApi = rococoContractsClient.getTypedApi(parachainDescriptors);
 
-  type SomeApi = typeof relayChainApi | typeof parachainApi | typeof rococoContractsApi;
+  type SomeApi = typeof relayChainApi | typeof parachainApi;
 
   const expectBalanceIncrease = async (useraddress: string, api: SomeApi, blocksNum: number) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     const startBlock = await api.query.System.Number.getValue({ at: "best" });
     return await firstValueFrom(
       race([
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         api.query.System.Account.watchValue(useraddress, "best")
           .pipe(pairwise())
           .pipe(filter(([oldValue, newValue]) => newValue.data.free > oldValue.data.free)),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         api.query.System.Number.watchValue("best")
           .pipe(skipWhile((blockNumber) => blockNumber - startBlock < blocksNum))
           .pipe(mergeMap(() => throwError(() => new Error(`Balance did not increase in ${blocksNum} blocks`)))),
