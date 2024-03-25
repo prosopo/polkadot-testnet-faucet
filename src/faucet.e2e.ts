@@ -1,4 +1,6 @@
 import { until, validatedFetch } from "@eng-automation/js";
+import { ApiPromise } from "@polkadot/api";
+import { WsProvider } from "@polkadot/rpc-provider";
 import { AccountId, createClient } from "@polkadot-api/client";
 import { getChain } from "@polkadot-api/node-polkadot-provider";
 import { WebSocketProvider } from "@polkadot-api/ws-provider/node";
@@ -57,15 +59,11 @@ describe("Faucet E2E", () => {
 
   const parachainApi = parachainClient.getTypedApi(parachainDescriptors);
 
-  const rococoContractsClient = createClient(
+  const rococoContractsApi = new ApiPromise({
     // Zombienet parachain node.
-    getChain({
-      provider: WebSocketProvider("ws://127.0.0.1:9988"),
-      keyring: [],
-    }),
-  );
-
-  const rococoContractsApi = rococoContractsClient.getTypedApi(parachainDescriptors);
+    provider: new WsProvider("ws://127.0.0.1:9988"),
+    types: { Address: "AccountId", LookupSource: "AccountId" },
+  });
 
   type SomeApi = typeof relayChainApi | typeof parachainApi;
 
@@ -103,7 +101,7 @@ describe("Faucet E2E", () => {
   afterAll(async () => {
     relaychainClient.destroy();
     parachainClient.destroy();
-    rococoContractsClient.destroy();
+    await rococoContractsApi.disconnect();
     await destroyDataSource();
     if (e2eSetup) await teardown(e2eSetup);
   });
