@@ -96,4 +96,4 @@
     </div>
   </div>
 {/if}
-<div id={captchaId} />
+<div id={captchaId} class="z-0" />
