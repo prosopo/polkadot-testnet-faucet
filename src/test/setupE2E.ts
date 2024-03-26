@@ -178,7 +178,7 @@ async function setupMatrix(matrixContainer: StartedTestContainer): Promise<Matri
 }
 
 async function setupProcaptchaMockProvider() {
-  return await new GenericContainer("prosopo/provider-mock:0.0.2")
+  return await new GenericContainer("prosopo/provider-mock:0.0.3")
       .withExposedPorts(9229)
       .withWaitStrategy(Wait.forListeningPorts())
       .withExtraHosts([{ host: "host.docker.internal", ipAddress: "host-gateway" }])
