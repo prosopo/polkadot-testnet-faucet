@@ -10,7 +10,7 @@ import {migrations} from "src/db/migration/migrations";
 import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
 import {
   ProcaptchaTestSetup,
-  setupProcaptcha
+  ProcaptchaSetup, setupProcaptcha
 } from "src/test/setupE2EProcaptcha";
 import {ApiPromise} from "@polkadot/api";
 
