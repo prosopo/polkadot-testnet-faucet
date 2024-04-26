@@ -44,7 +44,7 @@ const getFormElements = async (page: Page, captchaProvider: "recaptcha" | "proca
 
       // Mock the verify api call and inject Alice's address before clicking the captcha
       await page.route("*/**/v1/prosopo/provider/verify", async (route) => {
-        const json = { user: testAccount, dapp: testSiteKey };
+        const json = { user: testAccount, dapp: testSiteKey, blockNumber: 1 };
         await route.continue({ postData: json });
       });
       captcha = page.locator("#captcha_element input[type='checkbox']");

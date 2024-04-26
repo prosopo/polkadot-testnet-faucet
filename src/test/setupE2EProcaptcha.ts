@@ -1,4 +1,4 @@
-import {ContractDeployer, getPairAsync, ProsopoCaptchaContract, wrapQuery} from "@prosopo/contract";
+import {ContractDeployer, getPairAsync, ProsopoCaptchaContract, wrapQuery, getWeight, getOptions} from "@prosopo/contract";
 import {ContractAbi, ContractFile, DappPayee, Hash, Payee, RandomProvider} from "@prosopo/captcha-contract";
 import {hexToU8a, stringToU8a} from "@polkadot/util";
 import {Abi} from "@polkadot/api-contract";
@@ -9,6 +9,7 @@ import {ApiPromise} from "@polkadot/api";
 import {TransactionQueue} from "@prosopo/tx"
 import {ContractSubmittableResult} from '@polkadot/api-contract/base/Contract'
 import BN from "bn.js";
+import {get} from '@prosopo/util'
 
 export type ProcaptchaTestSetup = {
     contract: ProsopoCaptchaContract,
@@ -16,6 +17,8 @@ export type ProcaptchaTestSetup = {
     testAccount: string,
     siteKey: string
 }
+
+const GAS_INCREASE_FACTOR = 2
 
 export class ProcaptchaSetup {
     private _api: ApiPromise;
@@ -70,9 +73,6 @@ export class ProcaptchaSetup {
             // any account can register an app site key so using Bob will be fine
             await this.procaptchaAppRegister(contract, this.siteKey);
 
-            // get random active provider and block number from response
-            //const randomProvider = await procaptchaGetRandomProvider(contract, siteKey, alicePair.address)
-
             return {contract, contractAddress: contract.address, testAccount: alicePair.address, siteKey: this.siteKey}
         } catch (e) {
             console.error(e)
@@ -108,16 +108,13 @@ export class ProcaptchaSetup {
     async procaptchaProviderRegister(contract: ProsopoCaptchaContract, port: number): Promise<void> {
         try {
             console.log("Registering Procaptcha provider")
-            const value = 1000000000
+            const value = (await contract.query.getProviderStakeThreshold()).value.unwrap().toNumber()
             const providerRegisterArgs: Parameters<typeof contract.query.providerRegister> = [
                 Array.from(stringToU8a(`http://host.docker.internal:${port}`)),
                 0,
-                Payee.dapp,
-                {
-                    value, // minimum value for a captcha provider to be active in the contract
-                },
+                Payee.dapp
             ]
-            await this.submitTx(contract, 'providerRegister', providerRegisterArgs, value)
+            await this.submitTx(contract, contract.query.providerRegister.name, providerRegisterArgs, value, contract.pair)
         } catch (e) {
             console.error(e)
             throw new Error(`Failed to register Procaptcha provider: ${JSON.stringify(e, null, 4)}`)
@@ -130,13 +127,16 @@ export class ProcaptchaSetup {
     }> {
         try {
             console.log("Setting Procaptcha provider dataset")
-            const dataset = {
-                datasetId: "0x28c1ba9d21c00f2e29c9ace8c46fd7dbfbb6f5a5f516771278635ac3ab88c267", // hashed value of "TESTDATASET"
-                datasetContentId: "0x7d23f5c5e496dc1c9bcf66c62e2ba7a60152f1486ef6032b56809badf0a48427", // hashed value of "TESTDATASETCONTENT"
-            }
+            const providerSetDatasetArgs: Parameters<typeof contract.query.providerSetDataset> = [
+                "0x28c1ba9d21c00f2e29c9ace8c46fd7dbfbb6f5a5f516771278635ac3ab88c267" as Hash, // hashed value of "TESTDATASET"
+                "0x7d23f5c5e496dc1c9bcf66c62e2ba7a60152f1486ef6032b56809badf0a48427" as Hash, // hashed value of "TESTDATASETCONTENT"
+            ]
 
-            await this.submitTx(contract, 'providerSetDataset', [dataset.datasetId, dataset.datasetContentId], 0)
-            return dataset
+            await this.submitTx(contract, 'providerSetDataset', providerSetDatasetArgs, 0, contract.pair)
+            return {
+                datasetId: providerSetDatasetArgs[0],
+                datasetContentId: providerSetDatasetArgs[1]
+            }
         } catch (e) {
             throw new Error(`Failed to set Procaptcha provider dataset: ${JSON.stringify(e, null, 4)}`)
         }
@@ -145,15 +145,12 @@ export class ProcaptchaSetup {
     async procaptchaAppRegister(contract: ProsopoCaptchaContract, siteKey: string): Promise<void> {
         try {
             console.log("Registering Procaptcha app")
-            const value = 1000000000
+            const value = (await contract.query.getDappStakeThreshold()).value.unwrap().toNumber()
             const appRegisterArgs: Parameters<typeof contract.query.dappRegister> = [
                 siteKey,
-                DappPayee.dapp,
-                {
-                    value, // minimum value for an app to be active in the contract
-                },
+                DappPayee.dapp
             ]
-            await this.submitTx(contract, 'providerSetDataset', appRegisterArgs, value)
+            await this.submitTx(contract, contract.query.dappRegister.name, appRegisterArgs, value)
         } catch (e) {
             throw new Error(`Failed to register Procaptcha app: ${JSON.stringify(e, null, 4)}`)
         }
@@ -161,37 +158,75 @@ export class ProcaptchaSetup {
 
     private async submitTx(
         contract: ProsopoCaptchaContract,
-        method: string,
+        methodName: string,
         args: any[],
         value: number | BN,
         pair?: KeyringPair
     ): Promise<ContractSubmittableResult> {
-        return new Promise((resolve, reject) => {
-            if (
-                contract.nativeContract.tx &&
-                method in contract.nativeContract.tx &&
-                contract.nativeContract.tx[method] !== undefined
-            ) {
-                try {
-                    contract.dryRunContractMethod(method, args, value).then((extrinsic) => {
-                        this.transactionQueue.add(
-                            extrinsic,
-                            (result: ContractSubmittableResult) => {
-                                resolve(result)
-                            },
-                            pair,
-                            method
-                        )
-                    })
-                } catch (err) {
-                    reject(err)
-                }
-            } else {
-                reject(new Error('CONTRACT.INVALID_METHOD'))
-            }
-        })
-    }
 
+        if (
+            contract.nativeContract.tx &&
+            methodName in contract.nativeContract.tx &&
+            contract.nativeContract.tx[methodName] !== undefined
+        ) {
+
+            try {
+                const weight = await getWeight(this.api)
+                const txPair = pair ? pair : contract.pair
+
+                const {gasRequired, storageDeposit} = await contract.nativeContract.query[methodName]!(
+                    txPair.address,
+                    {gasLimit: weight.weightV2, storageDepositLimit: null, value: value ? value : 0},
+                    ...args
+                )
+
+                // Increase the gas required by a factor of `GAS_INCREASE_FACTOR` to make sure we don't hit contracts.StorageDepositLimitExhausted
+                const weight2 = this.api.registry.createType('WeightV2', {
+                    refTime: gasRequired.refTime.toBn().muln(GAS_INCREASE_FACTOR),
+                    proofSize: gasRequired.proofSize.toBn().muln(GAS_INCREASE_FACTOR),
+                })
+                const options = {value, gasLimit: weight2, storageDepositLimit: null}
+                const method = get(contract.nativeContract.query, methodName)
+                const extrinsic = method(txPair.address, options, ...args)
+                const secondResult = await extrinsic
+                const message = contract.getContractMethod(methodName   )
+                if (secondResult.result.isErr) {
+                    const error = secondResult.result.asErr
+                    const mod = error.asModule
+                    const dispatchError = error.registry.findMetaError(mod)
+                    throw new Error(JSON.stringify({
+                        context: {
+                            error: `${dispatchError.section}.${dispatchError.name}`,
+                            caller: txPair.address,
+                            failedContractMethod: methodName,
+                        }})
+                    )
+                }
+                // will throw an error if the contract reverted
+                contract.getQueryResult(message, secondResult, args)
+
+                const extrinsicTx = get(contract.nativeContract.tx, message.method)(options, ...args)
+
+                return new Promise((resolve, reject) => {
+                    this.transactionQueue.add(
+                        extrinsicTx,
+                        (result: ContractSubmittableResult) => {
+                            resolve(result)
+                        },
+                        pair,
+                        methodName
+                    ).catch((err) => {
+                        reject(err)
+                    })
+                })
+            } catch (e) {
+                throw new Error(`Failed to submit Procaptcha transaction: ${JSON.stringify(e, null, 4)}`)
+            }
+
+        } else {
+            throw new Error('CONTRACT.INVALID_METHOD')
+        }
+    }
 }
 
 export async function procaptchaGetRandomProvider(contract: ProsopoCaptchaContract, siteKey: string, userAccount: string): Promise<RandomProvider> {
@@ -212,7 +247,7 @@ export async function setupProcaptcha(api: ApiPromise, siteKey: string, port: nu
     try {
         const setup = new ProcaptchaSetup(api, siteKey, port)
         return await setup.isReady()
-    } catch(e) {
+    } catch (e) {
         throw new Error(`Failed to setup Procaptcha: ${JSON.stringify(e, null, 4)}`)
     }
 }
