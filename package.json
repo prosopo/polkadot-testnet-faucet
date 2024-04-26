@@ -49,7 +49,7 @@
     "pre-commit": "yarn lint-staged"
   },
   "dependencies": {
-    "@eng-automation/js": "^1.0.0",
+    "@eng-automation/js": "^1.0.3",
     "@polkadot-api/cli": "^0.0.1-0027dd301d1d5a078e9c770a18e27aed76a66f50.1.0",
     "@polkadot-api/client": "^0.0.1-0027dd301d1d5a078e9c770a18e27aed76a66f50.1.0",
     "@polkadot-api/node-polkadot-provider": "^0.0.1-0027dd301d1d5a078e9c770a18e27aed76a66f50.1.0",
@@ -102,22 +102,5 @@
     "ts-patch": "^2.1.0",
     "typescript": "^4.9.3",
     "typescript-transform-paths": "^3.4.6"
-  },
-  "dependenciesMeta": {
-    "buildcheck@0.0.6": {
-      "unplugged": true
-    }
-  },
-  "resolutions": {
-    "@polkadot/api": "10.13.1",
-    "@polkadot/api-augment": "10.13.1",
-    "@polkadot/keyring": "12.6.2",
-    "@polkadot/util": "12.6.2",
-    "@polkadot/util-crypto": "12.6.2",
-    "@polkadot/wasm-crypto": "7.3.2",
-    "@polkadot/x-randomvalues": "12.6.2",
-    "@polkadot/types": "10.13.1",
-    "@polkadot/types-create": "10.13.1",
-    "@polkadot/rpc-provider": "10.13.1"
   }
 }
