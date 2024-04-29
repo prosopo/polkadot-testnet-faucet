@@ -213,7 +213,6 @@ describe("Faucet E2E", () => {
       procaptchaDetails.testAccount,
     );
     const result = await drip(webEndpoint, userAddress, undefined, randomProvider);
-    console.log("result", result);
 
     expect(result.hash).toBeTruthy();
     await expectBalanceIncrease(userAddress, relayChainApi, 3);

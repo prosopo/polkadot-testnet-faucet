@@ -1,13 +1,18 @@
-import {GenericContainer, StartedTestContainer, Wait} from "testcontainers";
+import {
+  GenericContainer,
+  Wait,
+  StartedTestContainer
+} from "testcontainers";
+
 import path from "path";
-import {promises as fs} from "fs";
-import {exec} from "child_process";
-import {createRoom, getAccessToken, inviteUser, joinRoom} from "./matrixHelpers";
-import {Readable} from "stream";
-import {DataSource} from "typeorm";
-import {Drip} from "src/db/entity/Drip";
-import {migrations} from "src/db/migration/migrations";
-import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
+import { promises as fs } from "fs";
+import { exec } from "child_process";
+import { createRoom, getAccessToken, inviteUser, joinRoom } from "./matrixHelpers";
+import { Readable } from "stream";
+import { DataSource } from "typeorm";
+import { Drip } from "src/db/entity/Drip";
+import { migrations } from "src/db/migration/migrations";
+import { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions";
 import {
   ProcaptchaTestSetup,
   setupProcaptcha

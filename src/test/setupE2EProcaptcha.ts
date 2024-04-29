@@ -75,7 +75,6 @@ export class ProcaptchaSetup {
 
             return {contract, contractAddress: contract.address, testAccount: alicePair.address, siteKey: this.siteKey}
         } catch (e) {
-            console.error(e)
             throw new Error(`Failed to setup Procaptcha: ${JSON.stringify(e, null, 4)}`)
         }
     }
@@ -116,7 +115,6 @@ export class ProcaptchaSetup {
             ]
             await this.submitTx(contract, contract.query.providerRegister.name, providerRegisterArgs, value, contract.pair)
         } catch (e) {
-            console.error(e)
             throw new Error(`Failed to register Procaptcha provider: ${JSON.stringify(e, null, 4)}`)
         }
     }
@@ -244,12 +242,8 @@ export async function procaptchaGetRandomProvider(contract: ProsopoCaptchaContra
 
 
 export async function setupProcaptcha(api: ApiPromise, siteKey: string, port: number): Promise<ProcaptchaTestSetup> {
-    try {
-        const setup = new ProcaptchaSetup(api, siteKey, port)
-        return await setup.isReady()
-    } catch (e) {
-        throw new Error(`Failed to setup Procaptcha: ${JSON.stringify(e, null, 4)}`)
-    }
+    const setup = new ProcaptchaSetup(api, siteKey, port)
+    return await setup.isReady()
 }
 
 
