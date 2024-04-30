@@ -37,7 +37,7 @@ export class DripRequestHandler {
 
     if (external) {
       const captchaValidate = await this.captchaService.validate(opts.captchaResponse);
-      console.log("Captcha validate response", JSON.stringify(captchaValidate));
+      logger.debug("Captcha validate response", JSON.stringify(captchaValidate));
       if (!captchaValidate)
         return { error: `Captcha validation was unsuccessful. Captcha response was: ${opts.captchaResponse}` };
     }

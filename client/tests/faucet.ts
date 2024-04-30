@@ -9,7 +9,7 @@ type FormSubmit = {
 
 type CaptchaProvider = "recaptcha" | "procaptcha";
 
-const getFormElements = async (page: Page, captchaProvider: "recaptcha" | "procaptcha", getCaptcha = false) => {
+const getFormElements = async (page: Page, captchaProvider: CaptchaProvider, getCaptcha = false) => {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   let captcha: Locator = {} as Locator;
   if (getCaptcha) {
