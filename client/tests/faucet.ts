@@ -1,5 +1,6 @@
 import { type Frame, type FullConfig, type Locator, type Page, expect, test } from "@playwright/test";
 import { stringToHex } from "@polkadot/util";
+import { getCaptchaProvider } from "$lib/utils/captcha";
 
 type FormSubmit = {
   address: string;
@@ -113,15 +114,11 @@ export class FaucetTests {
     if (!env) {
       throw new Error("No env vars in project");
     }
-    const captchaProvider = env.PUBLIC_CAPTCHA_PROVIDER;
-    if (!captchaProvider) {
+
+    if (!env.PUBLIC_CAPTCHA_PROVIDER) {
       throw new Error(`No env var value found for PUBLIC_CAPTCHA_PROVIDER`);
     }
-    if (!["recaptcha", "procaptcha"].includes(captchaProvider)) {
-      throw new Error(`Invalid captcha provider: ${captchaProvider}`);
-    }
-
-    return captchaProvider as CaptchaProvider;
+    return getCaptchaProvider(env.PUBLIC_CAPTCHA_PROVIDER);
   };
 
   runTests(): void {
