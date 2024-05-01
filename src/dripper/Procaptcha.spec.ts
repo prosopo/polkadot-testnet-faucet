@@ -31,7 +31,7 @@ const mockValidationFn = async (payload: ProcaptchaOutput) => {
   const params = { dapp, user, commitmentId, blockNumber };
   const url = new URL(ApiPaths.VerifyCaptchaSolution, providerUrl).href;
   const result = await axios.post(url, params);
-  return result.data.solutionApproved;
+  return result.data.verified;
 };
 
 describe("Prosopo Procaptcha", () => {
