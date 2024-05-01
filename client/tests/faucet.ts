@@ -1,6 +1,7 @@
 import { type Frame, type FullConfig, type Locator, type Page, expect, test } from "@playwright/test";
 import { stringToHex } from "@polkadot/util";
-import { getCaptchaProvider as getCaptchaProviderTyped } from "$lib/utils/captcha";
+
+import { getCaptchaProvider as getCaptchaProviderTyped } from "../src/lib/utils/captcha";
 
 type FormSubmit = {
   address: string;
