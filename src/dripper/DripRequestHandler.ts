@@ -26,6 +26,7 @@ type HandleRequestOpts =
   | ({ external: false; sender: string } & Omit<DripRequestType, "captchaResponse">);
 
 export class DripRequestHandler {
+  // eslint-disable-next-line
   constructor(
     private actions: PolkadotActions,
     private captchaService: Procaptcha | Recaptcha,
