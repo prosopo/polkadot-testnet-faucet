@@ -34,7 +34,9 @@ jest.mock("../../config", () => {
   return {
     config: {
       Get: mockConfig.mockImplementation(
-        (key: string) => ({ NETWORK: "rococo" }[key]), // minimal viable config on the initial import
+        (key: string) =>
+          // eslint-disable-next-line security/detect-object-injection
+          ({ NETWORK: "rococo" })[key], // minimal viable config on the initial import
       ),
     },
   };
